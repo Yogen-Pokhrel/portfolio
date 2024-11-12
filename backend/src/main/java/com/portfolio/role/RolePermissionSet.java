@@ -1,6 +1,8 @@
 package com.portfolio.role;
 
-public enum RolePermissionSet {
+import com.portfolio.common.PermissionSet;
+
+public enum RolePermissionSet implements PermissionSet {
     CREATE("createRole"),
     READ("readRole"),
     UPDATE("updateRole"),

@@ -11,7 +11,6 @@ import com.portfolio.user.dto.response.UserDetailDto;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -43,7 +42,7 @@ public class UserController {
     }
 
     @PostMapping(consumes = "multipart/form-data", produces = {"application/json"})
-    public ApiResponse<UserDetailDto> createUser(@Valid @ModelAttribute CreateUserDto createUserDto) throws Exception {
+    public ApiResponse<UserDetailDto> createUser(@Valid @RequestBody CreateUserDto createUserDto) throws Exception {
         if(createUserDto.getUserImage() != null && !createUserDto.getUserImage().isEmpty()){
             File uploadedFile = fileUploaderService.upload(createUserDto.getUserImage(), uploadPath);
             createUserDto.setImage(uploadedFile.getPath());
@@ -62,7 +61,7 @@ public class UserController {
     }
 
     @PutMapping(path = "/{id}", consumes = "multipart/form-data", produces = {"application/json"})
-    public ApiResponse<UserDetailDto> update(@PathVariable int id, @ModelAttribute UpdateUserDto updateUserDto) throws Exception {
+    public ApiResponse<UserDetailDto> update(@PathVariable int id, @RequestBody UpdateUserDto updateUserDto) throws Exception {
         if(updateUserDto.getUserImage() != null && !updateUserDto.getUserImage().isEmpty()){
             File uploadedFile = fileUploaderService.upload(updateUserDto.getUserImage(), uploadPath);
             updateUserDto.setImage(uploadedFile.getPath());
@@ -75,16 +74,5 @@ public class UserController {
     public ApiResponse<?> deleteUser(@PathVariable int id) throws Exception {
         userService.delete(id);
         return ApiResponse.success("Successfully Deleted the ", "true");
-    }
-
-    @QueryMapping("users")
-    public List<UserDetailDto> getUsers() {
-        return userService.findAll();
-    }
-
-    @QueryMapping("user")
-    public UserDetailDto getUser(@RequestParam int id) throws Exception {
-        System.out.println("Id " + id);
-        return userService.findById(id);
     }
 }
