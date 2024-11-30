@@ -15,5 +15,5 @@ public @interface ValidEnum {
     String message() default "Invalid value. This is not permitted.";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
-    Class<? extends Enum<?>> enumClass();
+    Class<? extends Enum<?>> enumClass(); // Specifies the enum class to validate
 }

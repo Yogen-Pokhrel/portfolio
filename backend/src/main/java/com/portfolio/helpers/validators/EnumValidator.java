@@ -5,7 +5,7 @@ import jakarta.validation.ConstraintValidatorContext;
 
 import java.util.Arrays;
 
-public class EnumValidator implements ConstraintValidator<ValidEnum, String> {
+public class EnumValidator implements ConstraintValidator<ValidEnum, Enum<?>> {
 
     private Enum<?>[] enumValues;
 
@@ -16,12 +16,13 @@ public class EnumValidator implements ConstraintValidator<ValidEnum, String> {
     }
 
     @Override
-    public boolean isValid(String value, ConstraintValidatorContext context) {
+    public boolean isValid(Enum<?> value, ConstraintValidatorContext context) {
         if (value == null) {
-            return true; // Allow null values; use @NotNull to prevent nulls
+            return true; // Allow null; use @NotNull or @NotBlank for non-null constraints
         }
 
+        // Check if the value is part of the enum
         return Arrays.stream(enumValues)
-                .anyMatch(enumValue -> enumValue.name().equals(value));
+                .anyMatch(enumValue -> enumValue.equals(value));
     }
 }
