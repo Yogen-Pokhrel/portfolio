@@ -1,7 +1,10 @@
 package com.portfolio.auth.filter;
 
+import com.portfolio.common.Permission;
 import com.portfolio.rolePermission.RolePermissionService;
+import com.portfolio.rolePermission.entity.RolePermission;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
@@ -11,6 +14,7 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 
 @Component
+@Slf4j
 @RequiredArgsConstructor
 public class PermissionEvaluator implements org.springframework.security.access.PermissionEvaluator {
 
@@ -19,19 +23,19 @@ public class PermissionEvaluator implements org.springframework.security.access.
     @Override
     public boolean hasPermission(Authentication auth, Object targetDomainObject, Object permission) {
 
-        Collection<String> allPermissions = new ArrayList<>();
+        Collection<Permission> allPermissions = new ArrayList<>();
         if (permission instanceof Collection) {
             allPermissions = ((Collection<?>) permission).stream()
-                    .filter(perm -> perm instanceof String)
-                    .map(perm -> (String) perm)
+                    .filter(perm -> perm instanceof Permission)
+                    .map(perm -> (Permission) perm)
                     .collect(Collectors.toList());
-        }else if (permission instanceof String) {
-            allPermissions.add((String) permission);
-        }else {
-            throw new IllegalArgumentException("Permission must be a String or Collection<String>");
+        }else if(permission instanceof Permission) {
+            allPermissions.add((Permission) permission);
+        }
+        else {
+            throw new IllegalArgumentException("Permission must be a Action which implements Permission or Collection<Permission>");
         }
 
-        System.out.println(allPermissions);
         return rolePermissionService.checkPermission(auth, allPermissions);
     }
 
