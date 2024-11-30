@@ -4,7 +4,7 @@ import com.portfolio.common.Permission;
 import lombok.Getter;
 
 @Getter
-public enum RolePermissionSet implements Permission {
+public enum RoleAction implements Permission {
     CREATE("create"),
     READ("read"),
     UPDATE("update"),
@@ -12,9 +12,8 @@ public enum RolePermissionSet implements Permission {
 
     private final String action;
     private final String domain;
-    RolePermissionSet(String action){
+    RoleAction(String action){
         this.action = action;
-        this.domain = RoleController.class.getSimpleName();
+        this.domain = "RoleController";
     }
-
 }

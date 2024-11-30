@@ -28,7 +28,7 @@ public class RoleController {
 
     @GetMapping("/{id}")
     private ApiResponse<RoleResponseDto> findById(@PathVariable int id) throws Exception{
-        String r = RolePermissionSet.READ.get();
+        String r = RoleAction.READ.getAction();
         RoleResponseDto roles = roleService.findById(id);
         return ApiResponse.success(roles, "Role fetched successfully");
     }
