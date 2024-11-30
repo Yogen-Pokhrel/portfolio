@@ -16,6 +16,7 @@ import java.util.List;
 @Builder
 @RequiredArgsConstructor
 @AllArgsConstructor
+@ToString
 public class AuthDetails implements UserDetails {
 
     private int id;

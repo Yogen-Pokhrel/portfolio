@@ -60,7 +60,6 @@ public class AuthController {
         AuthDetails authDetails = new AuthDetails(authenticatedUser);
 
         Map<String, Object> responseData = new HashMap<>();
-
         responseData.put("access_token", "Bearer " + this.jwtUtil.generateToken(authDetails));
         responseData.put("refresh_token", this.jwtUtil.generateRefreshToken(authDetails.getEmail()));
         responseData.put("userData", authService.getLoggedInUserData(authenticatedUser));

@@ -38,8 +38,9 @@ public class AuthService implements UserDetailsService {
         return user.map(AuthDetails::new).orElse(null);
     }
 
-    public UserDetailDto register(CreateUserDto user) {
-        return userService.save(user);
+    public UserDetailDto register(CreateUserDto createUserDto) {
+        User user = userRepository.save(modelMapper.map(createUserDto, User.class));
+        return modelMapper.map(user, UserDetailDto.class);
     }
 
     public UserDetailDto getLoggedInUserData(int userId) throws Exception{

@@ -39,9 +39,9 @@ public class JWTUtil {
 
     public String generateToken(AuthDetails details) {
         Map<String, Object> claims = new HashMap<>();
-        String loggedRole = details.getAuthorities().stream()
+        List<String> loggedRole = details.getAuthorities().stream()
             .map(GrantedAuthority::getAuthority)
-            .toList().getFirst();
+            .toList();
         claims.put(JwtClaim.ROLES.getKey(), loggedRole);
         claims.put(JwtClaim.USER_ID.getKey(), details.getId());
         claims.put(JwtClaim.EMAIL.getKey(), details.getEmail());
@@ -72,14 +72,14 @@ public class JWTUtil {
                 .getSubject();
     }
 
-    public boolean isTokenValid(String token) throws Exception{
+    public boolean isTokenValid(String token){
         try {
             Jwts.parser()
                     .setSigningKey(secret)
                     .parseClaimsJws(token);
             return true;
         } catch (JwtException e) {
-            throw new JWTClaimException(e.getMessage());
+            throw new JwtException(e.getMessage());
         }
     }
 
