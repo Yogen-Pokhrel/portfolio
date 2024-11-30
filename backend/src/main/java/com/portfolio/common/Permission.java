@@ -1,6 +1,6 @@
 package com.portfolio.common;
 
-public interface PermissionSet {
+public interface Permission {
     String getAction();
     String getDomain();
 }
