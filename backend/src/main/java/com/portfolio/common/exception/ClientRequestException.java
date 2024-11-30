@@ -8,12 +8,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Getter
-public class ClientRequestException extends Exception{
+public class ClientRequestException extends RuntimeException{
     private final String message;
     private HttpStatus statusCode = HttpStatus.CONFLICT;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private Map<String, Object> data = new HashMap<>();
+    private Map<String, Object> data = null;
 
     ClientRequestException(String message){
         this.message = message;
