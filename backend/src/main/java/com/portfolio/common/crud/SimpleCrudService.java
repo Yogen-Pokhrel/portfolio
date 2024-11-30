@@ -1,13 +1,8 @@
 package com.portfolio.common.crud;
 
-import com.portfolio.auth.AuthDetails;
-import com.portfolio.common.BaseEntity;
 import com.portfolio.common.Identifiable;
-import com.portfolio.common.exception.InternalServerException;
 import com.portfolio.common.exception.ResourceNotFoundException;
 import com.portfolio.common.exception.ValidationException;
-import com.portfolio.user.repository.UserRepository;
-import jakarta.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,7 +16,6 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
-import java.time.LocalDateTime;
 import java.util.*;
 
 /**
@@ -29,19 +23,19 @@ import java.util.*;
  * with support for pagination. This service uses a generic repository and ModelMapper to facilitate
  * data transformation between entities and DTO objects.
  *
- * @param <Repository>  The repository type extending JpaRepository and JpaSpecificationExecutor
+ * @param <Repository>  The repository type extending JpaRepository
  * @param <Entity>      The entity type implementing Identifiable
  * @param <CreateRequestDto>  The Data Transfer Object (DTO) type for creating entities
  * @param <UpdateRequestDto>  The Data Transfer Object (DTO) type for updating entities
  * @param <ResponseDto> The Response DTO type for returning results
  * @param <PrimaryKey>  The primary key type of the entity
  */
-@Component
 @Transactional
 @Slf4j
-public abstract class CrudService<
-        Repository extends JpaRepository<Entity, PrimaryKey> & JpaSpecificationExecutor<Entity>,
-        Entity extends BaseEntity & Identifiable<PrimaryKey>,
+@Component
+public abstract class SimpleCrudService<
+        Repository extends JpaRepository<Entity, PrimaryKey>,
+        Entity extends Identifiable<PrimaryKey>,
         CreateRequestDto,
         UpdateRequestDto,
         ResponseDto,
@@ -57,9 +51,6 @@ public abstract class CrudService<
     @Autowired
     private ModelMapper modelMapper;
 
-    @Autowired
-    private UserRepository userRepository;
-
     /**
      * Constructor to initialize the CRUD service with the repository and entity/DTO classes.
      *
@@ -67,7 +58,7 @@ public abstract class CrudService<
      * @param entityClass      The class type of the entity
      * @param responseDtoClass The class type of the response DTO
      */
-    public CrudService(Repository repository, Class<Entity> entityClass, Class<ResponseDto> responseDtoClass) {
+    public SimpleCrudService(Repository repository, Class<Entity> entityClass, Class<ResponseDto> responseDtoClass) {
         this.repository = repository;
         this.entityClass = entityClass;
         this.responseDtoClass = responseDtoClass;
@@ -113,7 +104,7 @@ public abstract class CrudService<
      */
     @Transactional(readOnly = true)
     public Page<ResponseDto> findAll(Pageable pageable) {
-        return findAll(null, pageable, responseDtoClass);
+        return findAll(pageable, responseDtoClass);
     }
 
     /**
@@ -126,7 +117,7 @@ public abstract class CrudService<
     @Transactional(readOnly = true)
     public <T> Page<T> findAll(Pageable pageable, Class<T> responseType) {
         log.debug("Finding all entities with paginated data {}", pageable);
-        return findAll(null, pageable, responseType).map(entity -> modelMapper.map(entity, responseType));
+        return repository.findAll(pageable).map(entity -> modelMapper.map(entity, responseType));
     }
 
     /**
@@ -156,8 +147,15 @@ public abstract class CrudService<
     @Transactional(readOnly = true)
     public <T> Page<T> findAll(Specification<Entity> spec, Pageable pageable, Class<T> responseType) {
         log.debug("Finding all entities with paginated data {} and specification {}", pageable, spec);
-        Specification<Entity> notDeletedSpec = isNotDeleted();
-        return repository.findAll(Specification.where(spec).and(notDeletedSpec), pageable)
+        if (!(repository instanceof JpaSpecificationExecutor)) {
+            log.error("Repository does not support specifications");
+            throw new UnsupportedOperationException(
+                    "Repository does not support specifications. Please extend JpaSpecificationExecutor.");
+        }
+
+        @SuppressWarnings("unchecked")
+        JpaSpecificationExecutor<Entity> specificationExecutor = (JpaSpecificationExecutor<Entity>) repository;
+        return specificationExecutor.findAll(spec, pageable)
                 .map(entity -> modelMapper.map(entity, responseType));
     }
 
@@ -180,7 +178,7 @@ public abstract class CrudService<
     @Transactional(readOnly = true)
     public <T> List<T> findAll(Class<T> responseType) {
         log.debug("Finding all entities without pagination");
-        List<Entity> entities = repository.findAll(Specification.where(isNotDeleted()));
+        List<Entity> entities = repository.findAll();
         return entities.stream().map(entity -> modelMapper.map(entity, responseType)).toList();
     }
 
@@ -213,15 +211,12 @@ public abstract class CrudService<
      * Saves a new entity to the repository.
      *
      * @param createDto The DTO containing data for the new entity
-     * @param authDetails Current authenticated user details
      * @return The saved entity mapped to ResponseDto
      */
     @Transactional
-    public ResponseDto save(CreateRequestDto createDto, @NotNull AuthDetails authDetails) throws ValidationException {
+    public ResponseDto save(CreateRequestDto createDto) throws ValidationException {
         log.debug("Saving entity {}", createDto);
         Entity entity = modelMapper.map(createDto, entityClass);
-        validateAuthDetails(authDetails);
-        entity.setAddedBy(userRepository.findById(authDetails.getId()).orElse(null));
         validate(entity);
         entity = repository.save(entity);
         return mapToDto(entity, responseDtoClass);
@@ -232,14 +227,12 @@ public abstract class CrudService<
      *
      * @param id             The primary key of the entity
      * @param updateDto      DTO with updated data
-     * @param authDetails Current authenticated user details
      * @param isPatchRequest Flag indicating partial or full update
      * @return The updated entity mapped to ResponseDto
      */
     @Transactional
-    public ResponseDto update(PrimaryKey id, UpdateRequestDto updateDto, @NotNull AuthDetails authDetails, Boolean isPatchRequest) throws ResourceNotFoundException, ValidationException {
+    public ResponseDto update(PrimaryKey id, UpdateRequestDto updateDto, Boolean isPatchRequest) throws ResourceNotFoundException, ValidationException {
         log.debug("Updating entity {} with {}", id, updateDto);
-        validateAuthDetails(authDetails);
         Entity entity = findOneById(id);
         if (isPatchRequest) {
             modelMapper.map(updateDto, entity);
@@ -247,7 +240,6 @@ public abstract class CrudService<
             entity = modelMapper.map(updateDto, entityClass);
             entity.setId(id);
         }
-        entity.setUpdatedBy(userRepository.findById(authDetails.getId()).orElse(null));
         validate(entity);
         entity = repository.save(entity);
         return mapToDto(entity, responseDtoClass);
@@ -257,20 +249,13 @@ public abstract class CrudService<
      * Deletes an entity by ID (soft delete if the entity supports it).
      *
      * @param id The primary key of the entity
-     * @param authDetails Current authenticated user details
      * @return The deleted entity mapped to ResponseDto
      */
     @Transactional
-    public ResponseDto delete(PrimaryKey id, @NotNull AuthDetails authDetails) throws ResourceNotFoundException {
-        validateAuthDetails(authDetails);
-        log.debug("User {} is performing soft delete to an entity with id {}", authDetails.getId(), id);
+    public ResponseDto delete(PrimaryKey id) throws ResourceNotFoundException {
+        log.debug("Deleting entity with id {}", id);
         Entity entity = findOneById(id);
-
-        entity.setIsDeleted(true);
-        entity.setDeletedOn(LocalDateTime.now());
-        entity.setDeletedBy(userRepository.findById(authDetails.getId()).orElse(null));
-        repository.save(entity);
-
+        repository.delete(entity);
         return mapToDto(entity, responseDtoClass);
     }
 
@@ -284,16 +269,5 @@ public abstract class CrudService<
      */
     private <T> T mapToDto(Object source, Class<T> targetClass) {
         return modelMapper.map(source, targetClass);
-    }
-
-    private void validateAuthDetails(AuthDetails authDetails) {
-        if (authDetails == null) {
-            log.error("Authentication details are required");
-            throw new InternalServerException("Authentication details are required");
-        }
-    }
-
-    private Specification<Entity> isNotDeleted() {
-        return (root, query, cb) -> cb.isFalse(root.get("isDeleted"));
     }
 }
