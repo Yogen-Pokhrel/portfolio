@@ -1,5 +1,5 @@
 package seeder;
 
 public interface Seeder {
-    public SeederResult seed();
+    SeederResult seed();
 }
