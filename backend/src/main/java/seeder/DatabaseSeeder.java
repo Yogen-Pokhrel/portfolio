@@ -8,6 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -20,11 +21,7 @@ import java.util.List;
                 org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration.class,
 
                 // Exclude security auto-configuration (not needed for seeding)
-                org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration.class,
-
-                // Exclude GraphQL auto-configuration
-                org.springframework.boot.autoconfigure.graphql.GraphQlAutoConfiguration.class
-
+                org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration.class
         }
 )
 @EnableCaching
@@ -48,7 +45,8 @@ public class DatabaseSeeder implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... args) throws Exception {
+    @Transactional
+    public void run(String... args) {
         for (Seeder seeder : seeders) {
             SeederResult result = seeder.seed();
             System.out.println(result);

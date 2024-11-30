@@ -19,13 +19,12 @@ public class DatabaseSeederService {
     public static final int MAX_CONCURRENT_TASKS = 50;
     private static final Logger logger = LoggerFactory.getLogger(DatabaseSeederService.class);
 
-
     public static <T> SeederResult seed(String module, List<T> list, Function<T, SeederResult> function) {
         ExecutorService executorService = Executors.newFixedThreadPool(MAX_CONCURRENT_TASKS);
 
-        @SuppressWarnings("unchecked")
         CompletableFuture<SeederResult>[] futures = new CompletableFuture[list.size()];
         int index = 0;
+
         for (T item : list) {
             futures[index++] = CompletableFuture.supplyAsync(() -> {
                 try {
@@ -35,7 +34,8 @@ public class DatabaseSeederService {
                     SeederResult failedResult = new SeederResult();
                     failedResult.iFailed(e.getMessage());
                     return failedResult;
-                }}, executorService);
+                }
+            }, executorService);
         }
 
         SeederResult finalResult = new SeederResult(module);
@@ -59,5 +59,4 @@ public class DatabaseSeederService {
         }
         return finalResult;
     }
-
 }
