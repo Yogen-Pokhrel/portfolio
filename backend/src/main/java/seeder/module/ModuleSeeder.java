@@ -1,48 +1,25 @@
-package seeder;
+package seeder.module;
 
-import com.portfolio.address.AddressAction;
 import com.portfolio.common.Permission;
-import com.portfolio.role.RolePermissionSet;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import seeder.DatabaseSeederService;
+import seeder.Seeder;
+import seeder.SeederResult;
 
-import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+@Component
 public class ModuleSeeder implements Seeder {
 
-    private final Map<String, Class<? extends Permission>> data;
-
-    public ModuleSeeder(){
-        data = new HashMap<>();
-        data.put("roles", RolePermissionSet.class);
-        data.put("permissions", AddressAction.class);
-    }
-
+    @Override
     public SeederResult seed(){
-        for (Map.Entry<String, Class<? extends Permission>> entry : data.entrySet()) {
-            String moduleName = entry.getKey();
-
+        List<Permission> permissions = PermissionUtils.getAllPermissionActions();
+        for (Permission permission : permissions) {
+            System.out.println("Action: " + permission.getAction() + ", Domain: " + permission.getDomain());
         }
-        printAllPermissions(data);
-
+//        return DatabaseSeederService.seed("Module Permission")
         return null;
-    }
-
-    public static void printAllPermissions(Map<String, Class<? extends Permission>> modules) {
-        for (Map.Entry<String, Class<? extends Permission>> entry : modules.entrySet()) {
-            String moduleName = entry.getKey();
-            Class<? extends Permission> permissionSet = entry.getValue();
-
-            System.out.println("Permissions for module: " + moduleName);
-
-            for (Permission permission : permissionSet.getEnumConstants()) {
-                System.out.println(permission.getAction());
-            }
-            System.out.println();
-        }
-    }
-
-    public static void main(String[] args) {
-        ModuleSeeder seder = new ModuleSeeder();
-        seder.seed();
     }
 }
