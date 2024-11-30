@@ -17,6 +17,6 @@ public class UpdateUserDto {
     private String image;
 
     @ValidEnum(enumClass = UserStatus.class, message = "Please provide a valid status")
-    private String status;
+    private UserStatus status;
 
 }

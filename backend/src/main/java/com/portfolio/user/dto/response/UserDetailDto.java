@@ -1,8 +1,11 @@
 package com.portfolio.user.dto.response;
 
+import com.portfolio.role.dto.RoleResponseDto;
+import com.portfolio.user.entity.UserStatus;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 public class UserDetailDto {
@@ -14,4 +17,6 @@ public class UserDetailDto {
     private String phone;
     private LocalDate addedOn;
     private SimpleUserDto addedBy;
+    private List<RoleResponseDto> roles;
+    private UserStatus status;
 }

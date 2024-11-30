@@ -1,7 +1,6 @@
 package com.portfolio.user.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.portfolio.helpers.validators.ValidEnum;
 import com.portfolio.user.entity.UserStatus;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
