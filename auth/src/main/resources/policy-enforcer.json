@@ -1,0 +1,36 @@
+{
+  "realm": "Portfolio",
+  "auth-server-url": "http://127.0.0.1:8081",
+  "resource": "portfolio",
+  "credentials": {
+    "secret": "smdkaXIUHYEY5NPwsVn5eJtG3I2ENUN5"
+  },
+  "http-method-as-scope": false,
+  "paths" : [
+    {
+      "path": "/swagger-ui/*",
+      "enforcement-mode": "DISABLED"
+    },
+    {
+      "path": "/v3/api-docs/*",
+      "enforcement-mode": "DISABLED"
+    },
+    {
+      "path": "/v1/blogs/*",
+      "enforcement-mode": "DISABLED"
+    },
+    {
+      "path": "/v1/users/{userId}",
+      "enforcement-mode": "ENFORCING",
+      "claim-information-point": {
+        "claims": {
+          "uri_claim": "{request.uri}"
+        }
+      }
+    },
+    {
+      "path": "/v1/*",
+      "enforcement-mode": "ENFORCING"
+    }
+  ]
+}
