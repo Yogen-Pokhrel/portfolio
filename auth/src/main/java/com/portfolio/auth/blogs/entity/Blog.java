@@ -5,7 +5,9 @@ import com.portfolio.auth.common.Identifiable;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Data
 public class Blog extends BaseEntity implements Identifiable<Integer> {

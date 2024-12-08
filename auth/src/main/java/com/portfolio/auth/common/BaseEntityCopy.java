@@ -1,7 +1,9 @@
 package com.portfolio.auth.common;
 
-import com.portfolio.auth.user.entity.User;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,12 +13,14 @@ import java.util.UUID;
 @MappedSuperclass
 @Getter
 @Setter
-public abstract class BaseEntity {
+public abstract class BaseEntityCopy {
 
     private Boolean isDeleted = false;
 
     @Column(nullable = false, updatable = false)
     private LocalDateTime addedOn;
+
+    @Column(nullable = false)
     private UUID addedBy;
 
     private LocalDateTime updatedOn;

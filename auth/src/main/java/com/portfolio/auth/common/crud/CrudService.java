@@ -221,7 +221,8 @@ public abstract class CrudService<
         log.debug("Saving entity {}", createDto);
         Entity entity = modelMapper.map(createDto, entityClass);
         validateAuthDetails(authDetails);
-        entity.setAddedBy(userRepository.findById(authDetails.getId()).orElse(null));
+        //TODO: Update with actual UUID
+//        entity.setAddedBy(new UUID(2,10));
         validate(entity);
         entity = repository.save(entity);
         return mapToDto(entity, responseDtoClass);
@@ -247,7 +248,7 @@ public abstract class CrudService<
             entity = modelMapper.map(updateDto, entityClass);
             entity.setId(id);
         }
-        entity.setUpdatedBy(userRepository.findById(authDetails.getId()).orElse(null));
+//        entity.setUpdatedBy(new UUID(2,10));
         validate(entity);
         entity = repository.save(entity);
         return mapToDto(entity, responseDtoClass);
@@ -263,12 +264,12 @@ public abstract class CrudService<
     @Transactional
     public ResponseDto delete(PrimaryKey id, @NotNull AuthDetails authDetails) throws ResourceNotFoundException {
         validateAuthDetails(authDetails);
-        log.debug("User {} is performing soft delete to an entity with id {}", authDetails.getId(), id);
+        log.debug("User {} is performing soft delete to an entity with id {}", authDetails.getUserId(), id);
         Entity entity = findOneById(id);
 
         entity.setIsDeleted(true);
         entity.setDeletedOn(LocalDateTime.now());
-        entity.setDeletedBy(userRepository.findById(authDetails.getId()).orElse(null));
+//        entity.setDeletedBy(new UUID(2,10));
         repository.save(entity);
 
         return mapToDto(entity, responseDtoClass);
@@ -287,10 +288,10 @@ public abstract class CrudService<
     }
 
     private void validateAuthDetails(AuthDetails authDetails) {
-        if (authDetails == null) {
-            log.error("Authentication details are required");
-            throw new InternalServerException("Authentication details are required");
-        }
+//        if (authDetails == null) {
+//            log.error("Authentication details are required");
+//            throw new InternalServerException("Authentication details are required");
+//        }
     }
 
     private Specification<Entity> isNotDeleted() {

@@ -5,6 +5,7 @@ import com.portfolio.auth.blogs.dto.request.UpdateBlogDto;
 import com.portfolio.auth.blogs.dto.response.BlogResponseDto;
 import com.portfolio.auth.blogs.entity.Blog;
 import com.portfolio.auth.common.crud.CrudService;
+import com.portfolio.auth.common.crud.SimpleCrudService;
 import com.portfolio.auth.common.exception.ValidationException;
 import org.springframework.stereotype.Service;
 

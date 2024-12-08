@@ -1,5 +1,7 @@
 package com.portfolio.auth.configuration;
 
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeIn;
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
@@ -17,13 +19,11 @@ public class OpenApiConfig {
                 .info(new Info().title("Portfolio API")
                                 .description("This API is used to create a portfolio for multiple users")
                                 .version("1.0"))
-                .addSecurityItem(new SecurityRequirement().addList("bearerAuth"))
+                .addSecurityItem(new SecurityRequirement().addList("Keycloak"))
                 .components(new Components()
-                    .addSecuritySchemes("bearerAuth", new SecurityScheme()
-                        .type(SecurityScheme.Type.HTTP)
-                        .scheme("bearer")
-                        .bearerFormat("JWT")
-                        .in(SecurityScheme.In.HEADER)
-                        .name("Authorization")));
+                        .addSecuritySchemes("Keycloak", new SecurityScheme()
+                            .type(SecurityScheme.Type.OPENIDCONNECT).openIdConnectUrl("http://127.0.0.1:8081/realms/Portfolio/.well-known/openid-configuration")
+                            .scheme("bearer")
+                            .in(SecurityScheme.In.HEADER)));
     }
 }

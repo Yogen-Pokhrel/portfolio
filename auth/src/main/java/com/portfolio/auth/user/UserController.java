@@ -26,14 +26,12 @@ public class UserController {
     private final String uploadPath = "public/portfolio/users/";
 
     @GetMapping
-    @PreAuthorize("hasPermission(null, T(com.portfolio.auth.user.UserAction).READ)")
     public ApiResponse<Page<UserDetailDto>>  findAll(Pageable pageable) {
         return ApiResponse.success(userService.findAll(pageable), "Users fetched successfully"
         );
     }
 
     @PostMapping(consumes = "multipart/form-data", produces = {"application/json"})
-    @PreAuthorize("hasPermission(null, T(com.portfolio.auth.user.UserAction).CREATE)")
     public ApiResponse<UserDetailDto> createUser(@Valid @ModelAttribute CreateUserDto createUserDto, @AuthenticationPrincipal AuthDetails authDetails){
         if(createUserDto.getUserImage() != null && !createUserDto.getUserImage().isEmpty()){
             File uploadedFile = fileUploaderService.upload(createUserDto.getUserImage(), uploadPath);
@@ -43,13 +41,11 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasPermission(null, T(com.portfolio.auth.user.UserAction).READ)")
     public ApiResponse<UserDetailDto> findById(@PathVariable int id) throws Exception {
         return ApiResponse.success(userService.findById(id), "User fetched successfully");
     }
 
     @PutMapping(path = "/{id}", consumes = "multipart/form-data", produces = {"application/json"})
-    @PreAuthorize("hasPermission(null, T(com.portfolio.auth.user.UserAction).UPDATE)")
     public ApiResponse<UserDetailDto> update(@PathVariable int id, @ModelAttribute UpdateUserDto updateUserDto, @AuthenticationPrincipal AuthDetails authDetails) {
         if(updateUserDto.getUserImage() != null && !updateUserDto.getUserImage().isEmpty()){
             File uploadedFile = fileUploaderService.upload(updateUserDto.getUserImage(), uploadPath);
@@ -60,7 +56,6 @@ public class UserController {
     }
 
     @PatchMapping(path = "/{id}", consumes = "multipart/form-data", produces = {"application/json"})
-    @PreAuthorize("hasPermission(null, T(com.portfolio.auth.user.UserAction).UPDATE)")
     public ApiResponse<UserDetailDto> patchUpdate(@PathVariable int id, @ModelAttribute UpdateUserDto updateUserDto, @AuthenticationPrincipal AuthDetails authDetails) {
         if(updateUserDto.getUserImage() != null && !updateUserDto.getUserImage().isEmpty()){
             File uploadedFile = fileUploaderService.upload(updateUserDto.getUserImage(), uploadPath);
@@ -71,7 +66,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasPermission(null, T(com.portfolio.auth.user.UserAction).DELETE)")
+//    @PreAuthorize("hasPermission(null, T(com.portfolio.auth.user.UserAction).DELETE)")
     public ApiResponse<UserDetailDto> deleteUser(@PathVariable int id, @AuthenticationPrincipal AuthDetails authDetails) {
         return ApiResponse.success( userService.delete(id, authDetails), "User deleted successfully");
     }
