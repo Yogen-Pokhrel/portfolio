@@ -1,0 +1,20 @@
+version: '3'
+
+volumes:
+  keycloak:
+
+services:
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.0.6
+    container_name: keycloak
+    environment:
+      KC_DB_URL: jdbc:postgresql://host.docker.internal:5432/keycloak
+      KC_DB_USERNAME: yogen
+      KC_DB_PASSWORD: yogen1234
+      KC_DB: postgres
+      KC_BOOTSTRAP_ADMIN_USERNAME: admin
+      KC_BOOTSTRAP_ADMIN_PASSWORD: admin@1234
+    ports:
+      - 8081:8080
+    command: 
+     - start-dev
