@@ -1,7 +1,7 @@
 package com.portfolio.auth.blogs.entity;
 
-import com.portfolio.auth.common.BaseEntity;
-import com.portfolio.auth.common.Identifiable;
+import com.portfolio.core.common.BaseEntity;
+import com.portfolio.core.common.Identifiable;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
