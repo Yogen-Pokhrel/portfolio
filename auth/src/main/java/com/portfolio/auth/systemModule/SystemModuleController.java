@@ -1,11 +1,11 @@
 package com.portfolio.auth.systemModule;
 
-import com.portfolio.auth.authModule.AuthDetails;
-import com.portfolio.auth.common.ApiResponse;
-import com.portfolio.auth.common.exception.ResourceNotFoundException;
+import com.portfolio.core.common.ApiResponse;
+import com.portfolio.core.exception.ResourceNotFoundException;
 import com.portfolio.auth.systemModule.dto.request.SystemModuleCreateDto;
 import com.portfolio.auth.systemModule.dto.response.SystemModuleResponseDto;
 import com.portfolio.auth.systemModule.dto.request.SystemModuleUpdateDto;
+import com.portfolio.core.security.AuthDetails;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -29,7 +29,7 @@ public class SystemModuleController {
 
     @PostMapping
     @PreAuthorize("hasPermission(null, T(com.portfolio.auth.systemModule.SystemModuleAction).CREATE)")
-    public ApiResponse<SystemModuleResponseDto> create(@Valid @RequestBody SystemModuleCreateDto systemModuleCreateDto, @AuthenticationPrincipal AuthDetails authDetails){
+    public ApiResponse<SystemModuleResponseDto> create(@Valid @RequestBody SystemModuleCreateDto systemModuleCreateDto, AuthDetails authDetails){
         return ApiResponse.success(systemModuleService.save(systemModuleCreateDto), "System Module Created Successfully");
     }
 

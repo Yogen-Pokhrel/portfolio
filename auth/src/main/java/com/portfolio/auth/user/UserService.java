@@ -1,14 +1,14 @@
 package com.portfolio.auth.user;
 
-import com.portfolio.auth.authModule.AuthDetails;
-import com.portfolio.auth.common.crud.CrudService;
-import com.portfolio.auth.common.exception.ValidationException;
 import com.portfolio.auth.user.dto.response.UserDetailDto;
 import com.portfolio.auth.user.entity.User;
 import com.portfolio.auth.user.entity.UserStatus;
 import com.portfolio.auth.user.repository.UserRepository;
 import com.portfolio.auth.user.dto.request.CreateUserDto;
 import com.portfolio.auth.user.dto.request.UpdateUserDto;
+import com.portfolio.core.exception.ValidationException;
+import com.portfolio.core.security.AuthDetails;
+import com.portfolio.core.service.CrudService;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,8 +1,8 @@
 package com.portfolio.auth.rolePermission;
 
-import com.portfolio.auth.authModule.AuthDetails;
-import com.portfolio.auth.common.Permission;
+import com.portfolio.core.common.Permission;
 import com.portfolio.auth.rolePermission.repository.RolePermissionRepository;
+import com.portfolio.core.security.AuthDetails;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;

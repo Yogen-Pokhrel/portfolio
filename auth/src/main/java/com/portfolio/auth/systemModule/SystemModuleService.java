@@ -1,7 +1,7 @@
 package com.portfolio.auth.systemModule;
 
-import com.portfolio.auth.common.crud.SimpleCrudService;
-import com.portfolio.auth.common.exception.ValidationException;
+import com.portfolio.core.service.SimpleCrudService;
+import com.portfolio.core.exception.ValidationException;
 import com.portfolio.auth.systemModule.dto.request.SystemModuleCreateDto;
 import com.portfolio.auth.systemModule.dto.request.SystemModuleUpdateDto;
 import com.portfolio.auth.systemModule.dto.response.SystemModuleResponseDto;
