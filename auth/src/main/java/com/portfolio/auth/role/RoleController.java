@@ -1,7 +1,7 @@
 package com.portfolio.auth.role;
 
-import com.portfolio.auth.common.ApiResponse;
-import com.portfolio.auth.helpers.Utilities;
+import com.portfolio.core.common.ApiResponse;
+import com.portfolio.core.util.Utils;
 import com.portfolio.auth.role.dto.CreateRoleDto;
 import com.portfolio.auth.role.dto.RoleResponseDto;
 import com.portfolio.auth.role.dto.UpdateRoleDto;
@@ -35,7 +35,7 @@ public class RoleController {
 
     @PostMapping
     private ApiResponse<RoleResponseDto> create(@Valid @RequestBody CreateRoleDto createRoleDto) throws Exception{
-        createRoleDto.setSlug(Utilities.slugify(createRoleDto.getSlug(), true));
+        createRoleDto.setSlug(Utils.slugify(createRoleDto.getSlug(), true));
         RoleResponseDto newRole = roleService.save(createRoleDto);
         return ApiResponse.success(newRole, "Role created successfully");
     }

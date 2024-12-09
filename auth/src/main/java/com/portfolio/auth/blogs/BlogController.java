@@ -1,10 +1,10 @@
 package com.portfolio.auth.blogs;
 
-import com.portfolio.auth.authModule.AuthDetails;
 import com.portfolio.auth.blogs.dto.request.CreateBlogDto;
 import com.portfolio.auth.blogs.dto.request.UpdateBlogDto;
 import com.portfolio.auth.blogs.dto.response.BlogResponseDto;
-import com.portfolio.auth.common.ApiResponse;
+import com.portfolio.core.common.ApiResponse;
+import com.portfolio.core.security.AuthDetails;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

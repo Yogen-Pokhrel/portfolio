@@ -1,10 +1,10 @@
 package com.portfolio.auth.user.entity;
 
 import com.portfolio.auth.address.entity.Address;
-import com.portfolio.auth.common.BaseEntity;
-import com.portfolio.auth.common.Identifiable;
-import com.portfolio.auth.helpers.validators.ValidEnum;
+import com.portfolio.core.helpers.validators.ValidEnum;
 import com.portfolio.auth.role.entity.Role;
+import com.portfolio.core.common.BaseEntity;
+import com.portfolio.core.common.Identifiable;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

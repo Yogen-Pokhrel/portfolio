@@ -1,16 +1,15 @@
 package com.portfolio.auth.user;
 
-import com.portfolio.auth.authModule.AuthDetails;
-import com.portfolio.auth.common.ApiResponse;
-import com.portfolio.auth.helpers.FileUploaderService;
+import com.portfolio.core.helpers.FileUploaderService;
 import com.portfolio.auth.user.dto.response.UserDetailDto;
 import com.portfolio.auth.user.dto.request.CreateUserDto;
 import com.portfolio.auth.user.dto.request.UpdateUserDto;
+import com.portfolio.core.common.ApiResponse;
+import com.portfolio.core.security.AuthDetails;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,7 +25,7 @@ public class UserController {
     private final String uploadPath = "public/portfolio/users/";
 
     @GetMapping
-    public ApiResponse<Page<UserDetailDto>>  findAll(Pageable pageable) {
+    public ApiResponse<Page<UserDetailDto>> findAll(Pageable pageable) {
         return ApiResponse.success(userService.findAll(pageable), "Users fetched successfully"
         );
     }
@@ -46,7 +45,7 @@ public class UserController {
     }
 
     @PutMapping(path = "/{id}", consumes = "multipart/form-data", produces = {"application/json"})
-    public ApiResponse<UserDetailDto> update(@PathVariable int id, @ModelAttribute UpdateUserDto updateUserDto, @AuthenticationPrincipal AuthDetails authDetails) {
+    public ApiResponse<UserDetailDto> update(@PathVariable int id, @ModelAttribute UpdateUserDto updateUserDto, AuthDetails authDetails) {
         if(updateUserDto.getUserImage() != null && !updateUserDto.getUserImage().isEmpty()){
             File uploadedFile = fileUploaderService.upload(updateUserDto.getUserImage(), uploadPath);
             updateUserDto.setImage(uploadedFile.getPath());
@@ -56,7 +55,7 @@ public class UserController {
     }
 
     @PatchMapping(path = "/{id}", consumes = "multipart/form-data", produces = {"application/json"})
-    public ApiResponse<UserDetailDto> patchUpdate(@PathVariable int id, @ModelAttribute UpdateUserDto updateUserDto, @AuthenticationPrincipal AuthDetails authDetails) {
+    public ApiResponse<UserDetailDto> patchUpdate(@PathVariable int id, @ModelAttribute UpdateUserDto updateUserDto, AuthDetails authDetails) {
         if(updateUserDto.getUserImage() != null && !updateUserDto.getUserImage().isEmpty()){
             File uploadedFile = fileUploaderService.upload(updateUserDto.getUserImage(), uploadPath);
             updateUserDto.setImage(uploadedFile.getPath());

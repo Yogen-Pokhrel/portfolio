@@ -4,7 +4,7 @@ package com.portfolio.auth.address;
 import com.portfolio.auth.address.dto.request.CreateAddressDto;
 import com.portfolio.auth.address.dto.request.UpdateAddressDto;
 import com.portfolio.auth.address.dto.response.AddressDetailDto;
-import com.portfolio.auth.common.ApiResponse;
+import com.portfolio.core.common.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
