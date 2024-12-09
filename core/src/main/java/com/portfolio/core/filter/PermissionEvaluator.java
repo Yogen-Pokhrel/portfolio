@@ -1,23 +1,19 @@
-package com.portfolio.auth.authModule.filter;
+package com.portfolio.core.filter;
 
-import com.portfolio.auth.common.Permission;
-import com.portfolio.auth.rolePermission.RolePermissionService;
+import com.portfolio.core.common.Permission;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
-import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-@Component
 @Slf4j
 @RequiredArgsConstructor
 public class PermissionEvaluator implements org.springframework.security.access.PermissionEvaluator {
 
-    private  final RolePermissionService rolePermissionService;
 
     @Override
     public boolean hasPermission(Authentication auth, Object targetDomainObject, Object permission) {
@@ -35,7 +31,8 @@ public class PermissionEvaluator implements org.springframework.security.access.
             throw new IllegalArgumentException("Permission must be a Action which implements Permission or Collection<Permission>");
         }
 
-        return rolePermissionService.checkPermission(auth, allPermissions);
+        return true;
+//        return rolePermissionService.checkPermission(auth, allPermissions);
     }
 
     @Override

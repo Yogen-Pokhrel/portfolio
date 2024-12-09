@@ -1,7 +1,7 @@
-package com.portfolio.auth.authModule.filter;
+package com.portfolio.core.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.portfolio.auth.common.ApiResponse;
+import com.portfolio.core.common.ApiResponse;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

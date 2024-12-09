@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.Map;
 
 @Slf4j
-@RestControllerAdvice
 public class CommonExceptionHandler {
 
     @ExceptionHandler(IllegalArgumentException.class)
