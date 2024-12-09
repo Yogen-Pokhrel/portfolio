@@ -1,6 +1,6 @@
 package com.portfolio.auth.address;
 
-import com.portfolio.auth.common.Permission;
+import com.portfolio.core.common.Permission;
 import lombok.Getter;
 
 @Getter

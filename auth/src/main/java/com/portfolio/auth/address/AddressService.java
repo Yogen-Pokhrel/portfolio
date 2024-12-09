@@ -5,9 +5,7 @@ import com.portfolio.auth.address.dto.request.UpdateAddressDto;
 import com.portfolio.auth.address.dto.response.AddressDetailDto;
 import com.portfolio.auth.address.entity.Address;
 import com.portfolio.auth.address.repository.AddressRepository;
-import com.portfolio.auth.common.CommonService;
-import com.portfolio.auth.common.dto.PaginationDto;
-import com.portfolio.auth.common.exception.ResourceNotFoundException;
+import com.portfolio.core.exception.ResourceNotFoundException;
 import com.portfolio.auth.user.entity.User;
 import com.portfolio.auth.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,29 +18,24 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class AddressService implements CommonService<CreateAddressDto, UpdateAddressDto, AddressDetailDto, Integer> {
+public class AddressService{
     private final AddressRepository addressRepository;
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
 
-    @Override
+//    @Override
     public List<AddressDetailDto> findAll() {
         List<Address> addresses = addressRepository.findAll();
         return addresses.stream().map(address -> modelMapper.map(address, AddressDetailDto.class)).toList();
     }
 
-    @Override
-    public <R> Page<R> findAll(PaginationDto paginationDto) {
-        return CommonService.super.findAll(paginationDto);
-    }
-
-    @Override
+//    @Override
     public AddressDetailDto findById(Integer id) throws Exception {
         Address address = addressRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("No Address Exists with provided ID"));
         return modelMapper.map(address, AddressDetailDto.class);
     }
 
-    @Override
+//    @Override
     public AddressDetailDto save(CreateAddressDto address) throws Exception {
         User user = userRepository.findById(address.getUserId()).orElseThrow(() -> new ResourceNotFoundException("No User Exists with provided ID"));
         Address newAddress = modelMapper.map(address, Address.class);
@@ -51,7 +44,7 @@ public class AddressService implements CommonService<CreateAddressDto, UpdateAdd
         return modelMapper.map(newAddress, AddressDetailDto.class);
     }
 
-    @Override
+//    @Override
     public AddressDetailDto update(Integer id, UpdateAddressDto updateAddressDto) throws Exception {
         Optional<Address> optionalAddress = addressRepository.findById(id);
         Address address;
@@ -80,7 +73,7 @@ public class AddressService implements CommonService<CreateAddressDto, UpdateAdd
         return modelMapper.map(address, AddressDetailDto.class);
     }
 
-    @Override
+//    @Override
     public void delete(Integer id) throws Exception {
         addressRepository.deleteById(id);
     }
