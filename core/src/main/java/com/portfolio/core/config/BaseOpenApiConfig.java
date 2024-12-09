@@ -7,7 +7,7 @@ import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.springframework.context.annotation.Bean;
 
-public class OpenApiConfigCommon {
+public class BaseOpenApiConfig {
 
     @Bean
     public OpenAPI customOpenAPI() {
