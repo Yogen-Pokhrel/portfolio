@@ -31,15 +31,15 @@ public class UserResource {
 	
 	@Autowired
 	KeycloakSecurityUtil keycloakUtil;
-	
-	@Value("${realm}")
+
+	@Value("${keycloak.realm}")
 	private String realm;
 	
 	@GetMapping("/users")
 	public List<User> getUsers() {
 		System.out.println("I am getting users");
 		Keycloak keycloak = keycloakUtil.getKeycloakInstance();
-		List<UserRepresentation> userRepresentations = 
+		List<UserRepresentation> userRepresentations =
 				keycloak.realm(realm).users().list();
 		return mapUsers(userRepresentations);
     }

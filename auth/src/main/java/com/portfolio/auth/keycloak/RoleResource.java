@@ -28,12 +28,13 @@ public class RoleResource {
 	@Autowired
 	KeycloakSecurityUtil keycloakUtil;
 	
-	@Value("${realm}")
+	@Value("${keycloak.realm}")
 	private String realm;
 	
 	@GetMapping(value = "/roles")
 	public List<Role> getRoles() {
 		Keycloak keycloak = keycloakUtil.getKeycloakInstance();
+		System.out.println("Access token: " + keycloak.tokenManager().getAccessToken());
 		List<RoleRepresentation> roleRepresentations = 
 				keycloak.realm(realm).roles().list();
 		return mapRoles(roleRepresentations);

@@ -30,7 +30,7 @@ public class PermissionEvaluator implements org.springframework.security.access.
         else {
             throw new IllegalArgumentException("Permission must be a Action which implements Permission or Collection<Permission>");
         }
-
+        System.out.println("PermissionEvaluator has permissions: " + allPermissions);
         return true;
 //        return rolePermissionService.checkPermission(auth, allPermissions);
     }

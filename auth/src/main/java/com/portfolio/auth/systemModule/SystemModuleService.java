@@ -37,7 +37,7 @@ public class SystemModuleService extends SimpleCrudService<SystemModuleRepositor
                 existingRecord = this.systemModuleRepository.findBySlugIgnoreCase(systemModule.getSlug());
             }
             if(existingRecord.isPresent()){
-                throw new IllegalArgumentException("Slug already exists");
+                throw new ValidationException("Slug already exists");
             }
         }
         super.validate(systemModule);
