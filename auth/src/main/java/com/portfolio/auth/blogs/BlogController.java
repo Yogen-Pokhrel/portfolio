@@ -5,21 +5,20 @@ import com.portfolio.auth.blogs.dto.request.UpdateBlogDto;
 import com.portfolio.auth.blogs.dto.response.BlogResponseDto;
 import com.portfolio.core.common.ApiResponse;
 import com.portfolio.core.security.AuthDetails;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/v1/blogs")
+@Tag(name = "Blog", description = "Operations related to blogs")
 public class BlogController {
 
-    private BlogService blogService;
+    private final BlogService blogService;
 
     @Autowired
     public BlogController(BlogService blogService) {
@@ -27,24 +26,14 @@ public class BlogController {
     }
 
     @GetMapping
-    public ApiResponse<Page<BlogResponseDto>> getBlogs(Pageable pageable, @AuthenticationPrincipal Jwt jwt) {
-        System.out.println("Hello");
-        AuthDetails authDetails = new AuthDetails(jwt);
-        System.out.println(authDetails);
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        System.out.println("SecurityContext Authentication: " + authentication);
+    public ApiResponse<Page<BlogResponseDto>> getBlogs(Pageable pageable) {
         return ApiResponse.success(blogService.findAll(pageable), "Blogs fetched successfully");
     }
 
     @PostMapping
-    public ApiResponse<BlogResponseDto> create(@Valid @RequestBody CreateBlogDto createBlogDto, @AuthenticationPrincipal Jwt jwt, AuthDetails authDetails) {
-        System.out.println("Hello");
-        System.out.println("AuthDetails: " + authDetails);
-//        @AuthenticationPrincipal Jwt jwt,
-        jwt.getClaims().forEach((key, value) -> {
-            System.out.println(key + " : " + value);
-        });
-//        blogService.save(createBlogDto, null)
+    @Operation(description = "Create blog", summary = "create blogs")
+    public ApiResponse<BlogResponseDto> create(@Valid @RequestBody CreateBlogDto createBlogDto, AuthDetails authDetails) {
+        blogService.save(createBlogDto, authDetails);
         return ApiResponse.success(null, "Blog created successfully");
     }
 
@@ -54,8 +43,13 @@ public class BlogController {
     }
 
     @PatchMapping("/{id}")
-    public ApiResponse<BlogResponseDto> patchUpdate(@PathVariable Integer id, @RequestBody UpdateBlogDto updateBlogDto) {
-        return ApiResponse.success(blogService.update(id, updateBlogDto, null, true), "Blog updated successfully");
+    public ApiResponse<BlogResponseDto> patchUpdate(@PathVariable Integer id, @RequestBody UpdateBlogDto updateBlogDto, AuthDetails authDetails) {
+        return ApiResponse.success(blogService.update(id, updateBlogDto, authDetails, true), "Blog updated successfully");
+    }
+
+    @PatchMapping("/{id}/approve")
+    public ApiResponse<BlogResponseDto> approve(@PathVariable Integer id, @RequestBody UpdateBlogDto updateBlogDto, AuthDetails authDetails) {
+        return ApiResponse.success(blogService.update(id, updateBlogDto, authDetails, true), "Blog approved successfully");
     }
 
     @DeleteMapping("/{id}")

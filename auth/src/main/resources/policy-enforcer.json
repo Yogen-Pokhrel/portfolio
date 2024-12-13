@@ -5,7 +5,11 @@
   "credentials": {
     "secret": "smdkaXIUHYEY5NPwsVn5eJtG3I2ENUN5"
   },
-  "http-method-as-scope": false,
+  "path-cache": {
+    "lifespan": 0,
+    "max-entries": 0
+  },
+  "http-method-as-scope": true,
   "paths" : [
     {
       "path": "/swagger-ui/*",
@@ -16,7 +20,7 @@
       "enforcement-mode": "DISABLED"
     },
     {
-      "path": "/v1/blogs/*",
+      "path": "/v1/__blogs/*",
       "enforcement-mode": "DISABLED"
     },
     {
