@@ -1,0 +1,45 @@
+{
+    "name": "@types/swagger-schema-official",
+    "version": "2.0.25",
+    "description": "TypeScript definitions for swagger-schema-official",
+    "homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/swagger-schema-official",
+    "license": "MIT",
+    "contributors": [
+        {
+            "name": "Mohsen Azimi",
+            "githubUsername": "mohsen1",
+            "url": "https://github.com/mohsen1"
+        },
+        {
+            "name": "Ben Southgate",
+            "githubUsername": "bsouthga",
+            "url": "https://github.com/bsouthga"
+        },
+        {
+            "name": "Nicholas Merritt",
+            "githubUsername": "nimerritt",
+            "url": "https://github.com/nimerritt"
+        },
+        {
+            "name": "Mauri Edo",
+            "githubUsername": "mauriedo",
+            "url": "https://github.com/mauriedo"
+        },
+        {
+            "name": "Vincenzo Chianese",
+            "githubUsername": "XVincentX",
+            "url": "https://github.com/XVincentX"
+        }
+    ],
+    "main": "",
+    "types": "index.d.ts",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/DefinitelyTyped/DefinitelyTyped.git",
+        "directory": "types/swagger-schema-official"
+    },
+    "scripts": {},
+    "dependencies": {},
+    "typesPublisherContentHash": "542fa2c52c9016e6d7873175cad072648c3b9f2b417886d7544bdbe2266f185f",
+    "typeScriptVersion": "4.5"
+}
