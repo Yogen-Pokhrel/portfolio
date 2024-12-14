@@ -1,6 +1,6 @@
-package com.portfolio.auth.address.entity;
+package com.portfolio.account.address.entity;
 
-import com.portfolio.auth.user.entity.User;
+import com.portfolio.account.user.entity.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

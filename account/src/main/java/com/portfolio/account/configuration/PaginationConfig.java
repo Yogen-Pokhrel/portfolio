@@ -1,4 +1,4 @@
-package com.portfolio.auth.configuration;
+package com.portfolio.account.configuration;
 
 import com.portfolio.core.config.BasePaginationConfig;
 import org.springframework.context.annotation.Configuration;

@@ -1,4 +1,4 @@
-package com.portfolio.auth.configuration;
+package com.portfolio.account.configuration;
 
 import com.portfolio.core.common.ApiResponse;
 import com.portfolio.core.exception.BaseExceptionHandler;

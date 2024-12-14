@@ -1,4 +1,4 @@
-package com.portfolio.auth.blogs.dto.response;
+package com.portfolio.account.blogs.dto.response;
 
 import lombok.Data;
 

@@ -1,12 +1,12 @@
-package com.portfolio.auth.systemModule;
+package com.portfolio.account.systemModule;
 
 import com.portfolio.core.service.SimpleCrudService;
 import com.portfolio.core.exception.ValidationException;
-import com.portfolio.auth.systemModule.dto.request.SystemModuleCreateDto;
-import com.portfolio.auth.systemModule.dto.request.SystemModuleUpdateDto;
-import com.portfolio.auth.systemModule.dto.response.SystemModuleResponseDto;
-import com.portfolio.auth.systemModule.entity.SystemModule;
-import com.portfolio.auth.systemModule.repository.SystemModuleRepository;
+import com.portfolio.account.systemModule.dto.request.SystemModuleCreateDto;
+import com.portfolio.account.systemModule.dto.request.SystemModuleUpdateDto;
+import com.portfolio.account.systemModule.dto.response.SystemModuleResponseDto;
+import com.portfolio.account.systemModule.entity.SystemModule;
+import com.portfolio.account.systemModule.repository.SystemModuleRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

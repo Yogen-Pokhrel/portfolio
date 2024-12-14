@@ -1,11 +1,11 @@
-package com.portfolio.auth.user;
+package com.portfolio.account.user;
 
-import com.portfolio.auth.user.dto.response.UserDetailDto;
-import com.portfolio.auth.user.entity.User;
-import com.portfolio.auth.user.entity.UserStatus;
-import com.portfolio.auth.user.repository.UserRepository;
-import com.portfolio.auth.user.dto.request.CreateUserDto;
-import com.portfolio.auth.user.dto.request.UpdateUserDto;
+import com.portfolio.account.user.dto.response.UserDetailDto;
+import com.portfolio.account.user.entity.User;
+import com.portfolio.account.user.entity.UserStatus;
+import com.portfolio.account.user.repository.UserRepository;
+import com.portfolio.account.user.dto.request.CreateUserDto;
+import com.portfolio.account.user.dto.request.UpdateUserDto;
 import com.portfolio.core.exception.ValidationException;
 import com.portfolio.core.security.AuthDetails;
 import com.portfolio.core.service.CrudService;

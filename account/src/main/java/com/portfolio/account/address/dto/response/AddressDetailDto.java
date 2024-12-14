@@ -1,4 +1,4 @@
-package com.portfolio.auth.address.dto.response;
+package com.portfolio.account.address.dto.response;
 
 import lombok.Data;
 

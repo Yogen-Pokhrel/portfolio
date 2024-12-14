@@ -1,9 +1,9 @@
-package com.portfolio.auth.blogs;
+package com.portfolio.account.blogs;
 
-import com.portfolio.auth.blogs.dto.request.CreateBlogDto;
-import com.portfolio.auth.blogs.dto.request.UpdateBlogDto;
-import com.portfolio.auth.blogs.dto.response.BlogResponseDto;
-import com.portfolio.auth.blogs.entity.Blog;
+import com.portfolio.account.blogs.dto.request.CreateBlogDto;
+import com.portfolio.account.blogs.dto.request.UpdateBlogDto;
+import com.portfolio.account.blogs.dto.response.BlogResponseDto;
+import com.portfolio.account.blogs.entity.Blog;
 import com.portfolio.core.service.CrudService;
 import com.portfolio.core.exception.ValidationException;
 import org.springframework.stereotype.Service;

@@ -1,7 +1,7 @@
-package com.portfolio.auth.user.dto.response;
+package com.portfolio.account.user.dto.response;
 
-import com.portfolio.auth.role.dto.RoleResponseDto;
-import com.portfolio.auth.user.entity.UserStatus;
+import com.portfolio.account.role.dto.RoleResponseDto;
+import com.portfolio.account.user.entity.UserStatus;
 import lombok.Data;
 
 import java.time.LocalDate;

@@ -1,4 +1,4 @@
-package com.portfolio.auth.role.dto;
+package com.portfolio.account.role.dto;
 
 import lombok.Data;
 

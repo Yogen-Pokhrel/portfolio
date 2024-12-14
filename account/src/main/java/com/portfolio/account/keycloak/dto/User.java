@@ -1,4 +1,4 @@
-package com.portfolio.auth.keycloak.dto;
+package com.portfolio.account.keycloak.dto;
 
 public class User {
 	

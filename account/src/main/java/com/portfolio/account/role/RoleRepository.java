@@ -1,6 +1,6 @@
-package com.portfolio.auth.role;
+package com.portfolio.account.role;
 
-import com.portfolio.auth.role.entity.Role;
+import com.portfolio.account.role.entity.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

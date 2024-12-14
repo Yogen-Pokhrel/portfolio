@@ -1,16 +1,15 @@
-package com.portfolio.auth.address;
+package com.portfolio.account.address;
 
-import com.portfolio.auth.address.dto.request.CreateAddressDto;
-import com.portfolio.auth.address.dto.request.UpdateAddressDto;
-import com.portfolio.auth.address.dto.response.AddressDetailDto;
-import com.portfolio.auth.address.entity.Address;
-import com.portfolio.auth.address.repository.AddressRepository;
+import com.portfolio.account.address.dto.request.CreateAddressDto;
+import com.portfolio.account.address.dto.request.UpdateAddressDto;
+import com.portfolio.account.address.dto.response.AddressDetailDto;
+import com.portfolio.account.address.entity.Address;
+import com.portfolio.account.address.repository.AddressRepository;
 import com.portfolio.core.exception.ResourceNotFoundException;
-import com.portfolio.auth.user.entity.User;
-import com.portfolio.auth.user.repository.UserRepository;
+import com.portfolio.account.user.entity.User;
+import com.portfolio.account.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

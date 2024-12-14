@@ -1,6 +1,6 @@
-package com.portfolio.auth.authModule.dto;
+package com.portfolio.account.authModule.dto;
 
-import com.portfolio.auth.role.dto.RoleResponseDto;
+import com.portfolio.account.role.dto.RoleResponseDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -1,9 +1,9 @@
-package com.portfolio.auth.user;
+package com.portfolio.account.user;
 
 import com.portfolio.core.helpers.FileUploaderService;
-import com.portfolio.auth.user.dto.response.UserDetailDto;
-import com.portfolio.auth.user.dto.request.CreateUserDto;
-import com.portfolio.auth.user.dto.request.UpdateUserDto;
+import com.portfolio.account.user.dto.response.UserDetailDto;
+import com.portfolio.account.user.dto.request.CreateUserDto;
+import com.portfolio.account.user.dto.request.UpdateUserDto;
 import com.portfolio.core.common.ApiResponse;
 import com.portfolio.core.security.AuthDetails;
 import jakarta.validation.Valid;

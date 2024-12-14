@@ -1,7 +1,7 @@
-package com.portfolio.auth.role.entity;
+package com.portfolio.account.role.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.portfolio.auth.user.entity.User;
+import com.portfolio.account.user.entity.User;
 import jakarta.persistence.*;
 import lombok.*;
 

@@ -1,4 +1,4 @@
-package com.portfolio.auth.keycloak;
+package com.portfolio.account.keycloak;
 
 import lombok.extern.slf4j.Slf4j;
 import org.keycloak.OAuth2Constants;

@@ -1,6 +1,6 @@
-package com.portfolio.auth.rolePermission.repository;
+package com.portfolio.account.rolePermission.repository;
 
-import com.portfolio.auth.rolePermission.entity.RolePermission;
+import com.portfolio.account.rolePermission.entity.RolePermission;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

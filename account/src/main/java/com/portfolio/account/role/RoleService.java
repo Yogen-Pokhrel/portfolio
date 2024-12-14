@@ -1,11 +1,11 @@
-package com.portfolio.auth.role;
+package com.portfolio.account.role;
 
-import com.portfolio.auth.role.dto.CreateRoleDto;
+import com.portfolio.account.role.dto.CreateRoleDto;
 import com.portfolio.core.exception.ResourceNotFoundException;
 import com.portfolio.core.helpers.ListMapper;
-import com.portfolio.auth.role.dto.RoleResponseDto;
-import com.portfolio.auth.role.dto.UpdateRoleDto;
-import com.portfolio.auth.role.entity.Role;
+import com.portfolio.account.role.dto.RoleResponseDto;
+import com.portfolio.account.role.dto.UpdateRoleDto;
+import com.portfolio.account.role.entity.Role;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

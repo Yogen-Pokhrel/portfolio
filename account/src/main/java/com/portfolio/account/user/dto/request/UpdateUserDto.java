@@ -1,7 +1,7 @@
-package com.portfolio.auth.user.dto.request;
+package com.portfolio.account.user.dto.request;
 
 import com.portfolio.core.helpers.validators.ValidEnum;
-import com.portfolio.auth.user.entity.UserStatus;
+import com.portfolio.account.user.entity.UserStatus;
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 

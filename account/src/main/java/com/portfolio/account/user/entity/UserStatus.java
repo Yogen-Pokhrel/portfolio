@@ -1,4 +1,4 @@
-package com.portfolio.auth.user.entity;
+package com.portfolio.account.user.entity;
 
 public enum UserStatus {
     PENDING,

@@ -1,6 +1,6 @@
-package com.portfolio.auth.user.repository;
+package com.portfolio.account.user.repository;
 
-import com.portfolio.auth.user.entity.User;
+import com.portfolio.account.user.entity.User;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;

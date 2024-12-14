@@ -1,4 +1,4 @@
-package com.portfolio.auth.rolePermission.entity;
+package com.portfolio.account.rolePermission.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

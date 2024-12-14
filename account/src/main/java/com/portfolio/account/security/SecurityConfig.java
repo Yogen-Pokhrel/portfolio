@@ -1,4 +1,4 @@
-package com.portfolio.auth.security;
+package com.portfolio.account.security;
 
 import com.portfolio.core.security.BaseSecurityConfig;
 import lombok.extern.slf4j.Slf4j;

@@ -1,8 +1,8 @@
-package com.portfolio.auth.blogs;
+package com.portfolio.account.blogs;
 
-import com.portfolio.auth.blogs.dto.request.CreateBlogDto;
-import com.portfolio.auth.blogs.dto.request.UpdateBlogDto;
-import com.portfolio.auth.blogs.dto.response.BlogResponseDto;
+import com.portfolio.account.blogs.dto.request.CreateBlogDto;
+import com.portfolio.account.blogs.dto.request.UpdateBlogDto;
+import com.portfolio.account.blogs.dto.response.BlogResponseDto;
 import com.portfolio.core.common.ApiResponse;
 import com.portfolio.core.security.AuthDetails;
 import io.swagger.v3.oas.annotations.Operation;

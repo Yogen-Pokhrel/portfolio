@@ -1,4 +1,4 @@
-package com.portfolio.auth.role.dto;
+package com.portfolio.account.role.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

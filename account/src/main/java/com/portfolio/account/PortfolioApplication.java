@@ -1,4 +1,4 @@
-package com.portfolio.auth;
+package com.portfolio.account;
 
 import org.modelmapper.Condition;
 import org.modelmapper.ModelMapper;

@@ -1,4 +1,4 @@
-package com.portfolio.auth.systemModule.dto.request;
+package com.portfolio.account.systemModule.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;

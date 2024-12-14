@@ -1,6 +1,6 @@
-package com.portfolio.auth.systemModule.repository;
+package com.portfolio.account.systemModule.repository;
 
-import com.portfolio.auth.systemModule.entity.SystemModule;
+import com.portfolio.account.systemModule.entity.SystemModule;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

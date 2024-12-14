@@ -1,4 +1,4 @@
-package com.portfolio.auth.role;
+package com.portfolio.account.role;
 
 import com.portfolio.core.common.Permission;
 import lombok.Getter;

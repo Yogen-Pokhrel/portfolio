@@ -1,4 +1,4 @@
-package com.portfolio.auth.rolePermission;
+package com.portfolio.account.rolePermission;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;

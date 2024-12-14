@@ -1,4 +1,4 @@
-package com.portfolio.auth.blogs.entity;
+package com.portfolio.account.blogs.entity;
 
 import com.portfolio.core.common.BaseEntity;
 import com.portfolio.core.common.Identifiable;

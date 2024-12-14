@@ -1,4 +1,4 @@
-package com.portfolio.auth.address.dto.request;
+package com.portfolio.account.address.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;

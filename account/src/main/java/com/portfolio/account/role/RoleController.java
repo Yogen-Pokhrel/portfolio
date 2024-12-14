@@ -1,10 +1,10 @@
-package com.portfolio.auth.role;
+package com.portfolio.account.role;
 
 import com.portfolio.core.common.ApiResponse;
 import com.portfolio.core.util.Utils;
-import com.portfolio.auth.role.dto.CreateRoleDto;
-import com.portfolio.auth.role.dto.RoleResponseDto;
-import com.portfolio.auth.role.dto.UpdateRoleDto;
+import com.portfolio.account.role.dto.CreateRoleDto;
+import com.portfolio.account.role.dto.RoleResponseDto;
+import com.portfolio.account.role.dto.UpdateRoleDto;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

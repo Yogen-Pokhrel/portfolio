@@ -1,4 +1,4 @@
-package com.portfolio.auth.systemModule.entity;
+package com.portfolio.account.systemModule.entity;
 
 import com.portfolio.core.common.Identifiable;
 import jakarta.persistence.*;

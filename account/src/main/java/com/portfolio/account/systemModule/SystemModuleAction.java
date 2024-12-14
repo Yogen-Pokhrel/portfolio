@@ -1,4 +1,4 @@
-package com.portfolio.auth.systemModule;
+package com.portfolio.account.systemModule;
 
 import com.portfolio.core.common.Permission;
 import lombok.Getter;

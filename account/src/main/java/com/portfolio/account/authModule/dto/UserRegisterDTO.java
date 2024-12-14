@@ -1,4 +1,4 @@
-package com.portfolio.auth.authModule.dto;
+package com.portfolio.account.authModule.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.validation.constraints.Email;

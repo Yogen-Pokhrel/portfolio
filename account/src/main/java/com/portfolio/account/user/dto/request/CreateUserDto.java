@@ -1,7 +1,7 @@
-package com.portfolio.auth.user.dto.request;
+package com.portfolio.account.user.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.portfolio.auth.user.entity.UserStatus;
+import com.portfolio.account.user.entity.UserStatus;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;

@@ -1,6 +1,6 @@
-package com.portfolio.auth.blogs;
+package com.portfolio.account.blogs;
 
-import com.portfolio.auth.blogs.entity.Blog;
+import com.portfolio.account.blogs.entity.Blog;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;

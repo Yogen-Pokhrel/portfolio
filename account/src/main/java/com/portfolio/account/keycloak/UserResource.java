@@ -1,11 +1,11 @@
-package com.portfolio.auth.keycloak;
+package com.portfolio.account.keycloak;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.portfolio.auth.keycloak.dto.Role;
-import com.portfolio.auth.keycloak.dto.User;
+import com.portfolio.account.keycloak.dto.Role;
+import com.portfolio.account.keycloak.dto.User;
 import org.keycloak.admin.client.Keycloak;
 import org.keycloak.common.util.CollectionUtil;
 import org.keycloak.representations.idm.CredentialRepresentation;

@@ -1,7 +1,6 @@
-package com.portfolio.auth.configuration;
+package com.portfolio.account.configuration;
 
 import com.portfolio.core.config.KeycloakConfig;
-import com.portfolio.core.config.PolicyEnforcerConfigProvider;
 import com.portfolio.core.helpers.FileUploaderService;
 import com.portfolio.core.helpers.ListMapper;
 import com.portfolio.core.helpers.LocalFileUploaderServiceImpl;
