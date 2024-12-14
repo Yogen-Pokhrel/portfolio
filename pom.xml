@@ -15,7 +15,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>core</module>
-        <module>auth</module>
+        <module>account</module>
     </modules>
 
     <properties>
