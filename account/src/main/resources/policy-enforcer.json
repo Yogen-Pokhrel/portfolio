@@ -1,9 +1,9 @@
 {
-  "realm": "Portfolio",
-  "auth-server-url": "http://127.0.0.1:8081",
-  "resource": "portfolio",
+  "realm": "KEYCLOAK_PORTFOLIO",
+  "auth-server-url": "KEYCLOAK_SERVER_URL",
+  "resource": "KEYCLOAK_CLIENT",
   "credentials": {
-    "secret": "smdkaXIUHYEY5NPwsVn5eJtG3I2ENUN5"
+    "secret": "KEYCLOAK_CLIENT_SECRET"
   },
   "path-cache": {
     "lifespan": 0,
