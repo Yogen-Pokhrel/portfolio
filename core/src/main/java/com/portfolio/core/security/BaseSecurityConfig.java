@@ -1,8 +1,10 @@
 package com.portfolio.core.security;
 
+import com.portfolio.core.config.KeycloakConfig;
 import com.portfolio.core.config.PolicyEnforcerConfigProvider;
 import lombok.extern.slf4j.Slf4j;
 import org.keycloak.adapters.authorization.integration.jakarta.ServletPolicyEnforcerFilter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -19,6 +21,8 @@ public class BaseSecurityConfig {
     @Value("${spring.security.oauth2.resourceserver.jwt.jwk-set-uri}")
     String jwkSetUri;
 
+    @Autowired
+    KeycloakConfig keycloakConfig;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -32,7 +36,7 @@ public class BaseSecurityConfig {
     }
 
     private ServletPolicyEnforcerFilter createPolicyEnforcerFilter() {
-            return new ServletPolicyEnforcerFilter(httpRequest -> PolicyEnforcerConfigProvider.getPolicyEnforcerConfig());
+            return new ServletPolicyEnforcerFilter(httpRequest -> PolicyEnforcerConfigProvider.getPolicyEnforcerConfig(keycloakConfig));
     }
 
     @Bean

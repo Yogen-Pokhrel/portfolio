@@ -34,6 +34,7 @@ class Seeder {
         this.applicationClient = client[0];
     }
     async getResources() {
+        // security.oauth2.resourceserver.jwt.jwk-set-uri
         if (this.applicationClient == null)
             return;
         await this.kcAdminClient.clients.listResources({
@@ -46,10 +47,20 @@ class Seeder {
     }
     checkIfExist(resourceName) {
         this.applicationResources.forEach(ele => {
+            console.log("Resource found: " + resourceName);
             if (ele.name === resourceName)
                 return true;
         });
         return false;
+    }
+    extractResource(resourceName) {
+        for (const ele of this.applicationResources) {
+            if (ele.name === resourceName) {
+                console.log("Resource exists: " + resourceName);
+                return ele;
+            }
+        }
+        return null;
     }
     async process() {
         try {
@@ -63,8 +74,9 @@ class Seeder {
                     let operationId = (details.operationId).split("_")[0];
                     let urn = ("urn:" + (swaggerResponseData.info.microservice ? swaggerResponseData.info.microservice : "c.p") + ":" + details.tags[0] + ":" + operationId).toLowerCase().trim().replaceAll("/s", "-");
                     let resourceName = ((details.summary) ? details.summary : details.tags[0] + "-" + operationId).toLowerCase();
-                    console.log(`Creating resource: Resource: ${resourceName} Path: ${path} Method: ${method.toUpperCase()} URN: ${urn}`);
-                    await this.createResourceInKeycloak(resourceName, path, method.toUpperCase(), urn);
+                    // console.log(`Creating resource: Resource: ${resourceName} Path: ${path} Method: ${method.toUpperCase()} URN: ${urn}`);
+                    // await this.createResourceInKeycloak(resourceName, path, method.toUpperCase(), urn);
+                    await this.deleteResourceInKeycloak(resourceName);
                 }
             }
             console.log('All resources created successfully!');
@@ -72,6 +84,19 @@ class Seeder {
         catch (error) {
             console.error('Error:', error.message);
         }
+    }
+    async deleteResourceInKeycloak(resourceName) {
+        let resource = this.extractResource(resourceName);
+        if (resource == null)
+            return;
+        await this.kcAdminClient.clients.delResource({
+            id: this.applicationClient?.id,
+            resourceId: resource._id
+        }).then((data) => {
+            console.log("Resource deleted: " + resourceName);
+        }).catch((error) => {
+            console.error("Some error while deleting resource");
+        });
     }
     async createResourceInKeycloak(resourceName, uri, scope, urn) {
         try {
