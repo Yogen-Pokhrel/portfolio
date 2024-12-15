@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: api-gateway
+server:
+  port: 8080
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    urls:
+      - name: Account Service
+        url: /aggregate/account-service/v3/api-docs
+      - name: CMS Service
+        url: /aggregate/cms-service/v3/api-docs
+    path: /swagger-ui/index.html
+
+microservice:
+  portfolio-account-url: "http://localhost:8084"
+  portfolio-cms-url: "http://localhost:8085"
