@@ -10,9 +10,9 @@ springdoc:
   swagger-ui:
     urls:
       - name: Account Service
-        url: /aggregate/account-service/v3/api-docs
+        url: /openapi/account-service/v3/api-docs
       - name: CMS Service
-        url: /aggregate/cms-service/v3/api-docs
+        url: /openapi/cms-service/v3/api-docs
     path: /swagger-ui/index.html
 
 microservice:

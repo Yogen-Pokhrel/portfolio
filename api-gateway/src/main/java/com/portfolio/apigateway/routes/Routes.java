@@ -37,7 +37,7 @@ public class Routes {
     @Bean
     public RouterFunction<ServerResponse> accountServiceSwaggerRoute() {
         return route("account_service_swagger")
-                .route(RequestPredicates.path("/aggregate/account-service/v3/api-docs"), HandlerFunctions.http(portfolioAccountServiceUrl))
+                .route(RequestPredicates.path("/openapi/account-service/v3/api-docs"), HandlerFunctions.http(portfolioAccountServiceUrl))
                 .filter(CircuitBreakerFilterFunctions.circuitBreaker("productServiceSwaggerCircuitBreaker",
                         URI.create("forward:/fallbackRoute")))
                 .filter(setPath("/v3/api-docs"))
@@ -56,7 +56,7 @@ public class Routes {
     @Bean
     public RouterFunction<ServerResponse> cmsServiceSwaggerRoute() {
         return route("cms_service_swagger")
-                .route(RequestPredicates.path("/aggregate/cms-service/v3/api-docs"), HandlerFunctions.http(portfolioCmsServiceUrl))
+                .route(RequestPredicates.path("/openapi/cms-service/v3/api-docs"), HandlerFunctions.http(portfolioCmsServiceUrl))
                 .filter(CircuitBreakerFilterFunctions.circuitBreaker("productServiceSwaggerCircuitBreaker",
                         URI.create("forward:/fallbackRoute")))
                 .filter(setPath("/v3/api-docs"))
