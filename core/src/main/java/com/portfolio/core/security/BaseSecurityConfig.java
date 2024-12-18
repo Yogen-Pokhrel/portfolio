@@ -29,14 +29,14 @@ public class BaseSecurityConfig {
 
         http.csrf(AbstractHttpConfigurer::disable);
         http.addFilterBefore(createPolicyEnforcerFilter(), BearerTokenAuthenticationFilter.class)
-        .oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(new AuthenticationConverter())))
-        .sessionManagement(t -> t.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+                .oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(new AuthenticationConverter())))
+                .sessionManagement(t -> t.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
         return http.build();
     }
 
     private ServletPolicyEnforcerFilter createPolicyEnforcerFilter() {
-            return new ServletPolicyEnforcerFilter(httpRequest -> PolicyEnforcerConfigProvider.getPolicyEnforcerConfig(keycloakConfig));
+        return new ServletPolicyEnforcerFilter(httpRequest -> PolicyEnforcerConfigProvider.getPolicyEnforcerConfig(keycloakConfig));
     }
 
     @Bean
