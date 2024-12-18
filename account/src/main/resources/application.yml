@@ -1,6 +1,6 @@
 spring:
   application:
-    name: portfolio
+    name: portfolio-account
   security:
     oauth2:
       resourceserver:
@@ -60,3 +60,24 @@ keycloak:
   server-url: ${KEYCLOAK_SERVER_URL:keycloak_server_url}
   client-id: ${KEYCLOAK_CLIENT_ID:keycloak_client_id}
   client-secret: ${KEYCLOAK_CLIENT_SECRET:keycloak_client_secret}
+
+server:
+  port: 8084
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, metrics, prometheus
+  metrics:
+    distribution:
+      percentiles-histogram:
+        http:
+          server:
+            requests: true
+  observations:
+    key-values:
+      application: account-service
+  tracing:
+    sampling:
+      probability: 1.0

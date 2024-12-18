@@ -14,7 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/v1/blogs")
+@RequestMapping("/account/blogs")
 @Tag(name = "Blog", description = "Operations related to blogs")
 public class BlogController {
 
