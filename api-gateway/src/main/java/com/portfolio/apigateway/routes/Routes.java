@@ -25,43 +25,46 @@ public class Routes {
     @Value("${microservice.portfolio-cms-url}")
     private String portfolioCmsServiceUrl;
 
+    @Value("${microservice.portfolio-gateway-url}")
+    private String portfolioGatewayUrl;
+
     @Bean
     public RouterFunction<ServerResponse> accountServiceRoute() {
         return route("account_service")
-                .route(RequestPredicates.path("/account"), HandlerFunctions.http(portfolioAccountServiceUrl))
+                .route(RequestPredicates.path("/account/*"), HandlerFunctions.http(portfolioAccountServiceUrl))
                 .filter(CircuitBreakerFilterFunctions.circuitBreaker("productServiceCircuitBreaker",
                         URI.create("forward:/fallbackRoute")))
                 .build();
     }
 
-    @Bean
-    public RouterFunction<ServerResponse> accountServiceSwaggerRoute() {
-        return route("account_service_swagger")
-                .route(RequestPredicates.path("/openapi/account-service/v3/api-docs"), HandlerFunctions.http(portfolioAccountServiceUrl))
-                .filter(CircuitBreakerFilterFunctions.circuitBreaker("productServiceSwaggerCircuitBreaker",
-                        URI.create("forward:/fallbackRoute")))
-                .filter(setPath("/v3/api-docs"))
-                .build();
-    }
+//    @Bean
+//    public RouterFunction<ServerResponse> accountServiceSwaggerRoute() {
+//        return route("account_service_swagger")
+//                .route(RequestPredicates.path("/openapi/account-service/v3/api-docs"), HandlerFunctions.http(portfolioGatewayUrl))
+//                .filter(CircuitBreakerFilterFunctions.circuitBreaker("productServiceSwaggerCircuitBreaker",
+//                        URI.create("forward:/fallbackRoute")))
+////                .filter(setPath("/v3/api-docs"))
+//                .build();
+//    }
 
     @Bean
     public RouterFunction<ServerResponse> cmsServiceRoute() {
         return route("cms_service")
-                .route(RequestPredicates.path("/cms"), HandlerFunctions.http(portfolioCmsServiceUrl))
+                .route(RequestPredicates.path("/cms/*"), HandlerFunctions.http(portfolioCmsServiceUrl))
                 .filter(CircuitBreakerFilterFunctions.circuitBreaker("productServiceCircuitBreaker",
                         URI.create("forward:/fallbackRoute")))
                 .build();
     }
 
-    @Bean
-    public RouterFunction<ServerResponse> cmsServiceSwaggerRoute() {
-        return route("cms_service_swagger")
-                .route(RequestPredicates.path("/openapi/cms-service/v3/api-docs"), HandlerFunctions.http(portfolioCmsServiceUrl))
-                .filter(CircuitBreakerFilterFunctions.circuitBreaker("productServiceSwaggerCircuitBreaker",
-                        URI.create("forward:/fallbackRoute")))
-                .filter(setPath("/v3/api-docs"))
-                .build();
-    }
+//    @Bean
+//    public RouterFunction<ServerResponse> cmsServiceSwaggerRoute() {
+//        return route("cms_service_swagger")
+//                .route(RequestPredicates.path("/openapi/cms-service/v3/api-docs"), HandlerFunctions.http(portfolioGatewayUrl))
+//                .filter(CircuitBreakerFilterFunctions.circuitBreaker("productServiceSwaggerCircuitBreaker",
+//                        URI.create("forward:/fallbackRoute")))
+////                .filter(setPath("/v3/api-docs"))
+//                .build();
+//    }
 
     @Bean
     public RouterFunction<ServerResponse> fallbackRoute() {

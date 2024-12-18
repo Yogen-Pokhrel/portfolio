@@ -1,6 +1,12 @@
 spring:
   application:
     name: api-gateway
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: ${KEYCLOAK_SERVER_URL:keycloak_server_url}/realms/Portfolio/protocol/openid-connect/certs
+
 server:
   port: 8080
 
@@ -13,8 +19,66 @@ springdoc:
         url: /openapi/account-service/v3/api-docs
       - name: CMS Service
         url: /openapi/cms-service/v3/api-docs
-    path: /swagger-ui/index.html
+    oauth:
+      client-id: ${KEYCLOAK_CLIENT_ID:keycloak_client_id}
+      client-secret: ${KEYCLOAK_CLIENT_SECRET:keycloak_client_secret}
+
 
 microservice:
-  portfolio-account-url: "http://localhost:8084"
-  portfolio-cms-url: "http://localhost:8085"
+  portfolio-account-url: http://localhost:8084
+  portfolio-cms-url: http://localhost:8085
+  portfolio-gateway-url: http://localhost:8080
+
+keycloak:
+  realm: ${KEYCLOAK_REALM:keycloak_realm}
+  server-url: ${KEYCLOAK_SERVER_URL:keycloak_server_url}
+  client-id: ${KEYCLOAK_CLIENT_ID:keycloak_client_id}
+  client-secret: ${KEYCLOAK_CLIENT_SECRET:keycloak_client_secret}
+
+# Actuator Endpoints
+management:
+  health:
+    circuitbreakers:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+  metrics:
+    distribution:
+      percentiles-histogram:
+        http:
+          server:
+            requests: true
+  observations:
+    key-values:
+      application: api-gateway
+  tracing:
+    sampling:
+      probability: 1.0
+
+# Resilience4j Properties
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        registerHealthIndicator: true
+        slidingWindowType: COUNT_BASED
+        slidingWindowSize: 10
+        failureRateThreshold: 50
+        waitDurationInOpenState: 5s
+        permittedNumberOfCallsInHalfOpenState: 3
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+        minimum-number-of-calls: 5
+  timelimiter:
+    configs:
+      default:
+        timeout-duration: 3s
+  retry:
+    configs:
+      default:
+        max-attempts: 3
+        wait-duration: 2s
