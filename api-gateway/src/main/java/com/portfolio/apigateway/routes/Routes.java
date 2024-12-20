@@ -31,7 +31,11 @@ public class Routes {
     @Bean
     public RouterFunction<ServerResponse> accountServiceRoute() {
         return route("account_service")
-                .route(RequestPredicates.path("/account/*"), HandlerFunctions.http(portfolioAccountServiceUrl))
+                .route(RequestPredicates
+                        .path("/account/*")
+                        .or(RequestPredicates.path("/users/*"))
+                        .or(RequestPredicates.path("/roles/*"))
+                        ,HandlerFunctions.http(portfolioAccountServiceUrl))
                 .filter(CircuitBreakerFilterFunctions.circuitBreaker("productServiceCircuitBreaker",
                         URI.create("forward:/fallbackRoute")))
                 .build();

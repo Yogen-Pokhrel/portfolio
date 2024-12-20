@@ -12,6 +12,13 @@
   "http-method-as-scope": true,
   "paths" : [
     {
+      "path": "/*",
+      "methods" : [{
+          "method": "OPTIONS"
+        }],
+      "enforcement-mode": "DISABLED"
+    },
+    {
       "path": "/swagger-ui/*",
       "enforcement-mode": "DISABLED"
     },

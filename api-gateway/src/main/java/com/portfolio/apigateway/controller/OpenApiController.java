@@ -16,11 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-@RestController
-@RequestMapping("/openapi")
+//@RestController
+//@RequestMapping("/openapi")
 public class OpenApiController {
 
-    @Autowired
+//    @Autowired
     ServiceResolver serviceResolver;
 
     private final RestTemplate restTemplate;
