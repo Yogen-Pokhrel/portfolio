@@ -16,6 +16,7 @@
     <modules>
         <module>core</module>
         <module>account</module>
+        <module>api-gateway</module>
     </modules>
 
     <properties>

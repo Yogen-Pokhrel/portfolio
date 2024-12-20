@@ -1,0 +1,51 @@
+{
+  "realm": "KEYCLOAK_PORTFOLIO",
+  "auth-server-url": "KEYCLOAK_SERVER_URL",
+  "resource": "KEYCLOAK_CLIENT",
+  "credentials": {
+    "secret": "KEYCLOAK_CLIENT_SECRET"
+  },
+  "path-cache": {
+    "lifespan": 0,
+    "max-entries": 0
+  },
+  "http-method-as-scope": true,
+  "paths" : [
+    {
+      "path": "/*",
+      "methods" : [{
+          "method": "OPTIONS"
+        }],
+      "enforcement-mode": "DISABLED"
+    },
+    {
+      "path": "/swagger-ui/*",
+      "enforcement-mode": "DISABLED"
+    },
+    {
+      "path": "/v3/api-docs/*",
+      "enforcement-mode": "DISABLED"
+    },
+    {
+      "path": "/openapi/*",
+      "enforcement-mode": "DISABLED"
+    },
+    {
+      "path": "/v1/__blogs/*",
+      "enforcement-mode": "DISABLED"
+    },
+    {
+      "path": "/v1/users/{userId}",
+      "enforcement-mode": "ENFORCING",
+      "claim-information-point": {
+        "claims": {
+          "uri_claim": "{request.uri}"
+        }
+      }
+    },
+    {
+      "path": "/v1/*",
+      "enforcement-mode": "ENFORCING"
+    }
+  ]
+}
