@@ -9,9 +9,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 
-/***
- * Use Defaults only if you want to enable default beans of ModelMapper, Pagination and Keycloak Configuration
- */
+/** <strong>Use Defaults only if you want to enable default beans of ModelMapper, Pagination and Keycloak Configuration</strong> */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Import({ModelMapperConfig.class, BasePaginationConfig.class, FileServiceConfig.class})
