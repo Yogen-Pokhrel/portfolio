@@ -20,7 +20,7 @@ public class ExperienceService extends CrudService<ExperienceRepository, Experie
 
     @Override
     public ExperienceResponseDto save(CreateExperienceDto createDto, AuthDetails authDetails) throws ValidationException {
-        Experience experience = new Experience();
+        createDto.setUserId(authDetails.getUserId());
         return super.save(createDto, authDetails);
     }
 }

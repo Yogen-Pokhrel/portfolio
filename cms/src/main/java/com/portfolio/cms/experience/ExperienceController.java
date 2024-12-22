@@ -29,7 +29,6 @@ public class ExperienceController {
 
     @PostMapping
     public ApiResponse<ExperienceResponseDto> createExperience(@RequestBody @Valid CreateExperienceDto createExperienceDto, AuthDetails authDetails) {
-//        createExperienceDto.setUserId(authDetails.getUserId());
         return ApiResponse.success(this.experienceService.save(createExperienceDto, authDetails), "Experience created successfully");
     }
 
