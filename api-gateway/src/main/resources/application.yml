@@ -1,6 +1,7 @@
 spring:
   application:
     name: api-gateway
+    skip-auth-converter: true
   security:
     oauth2:
       resourceserver:
@@ -16,9 +17,9 @@ springdoc:
   swagger-ui:
     urls:
       - name: Account Service
-        url: ${microservice.portfolio-account-url}/v3/api-docs
+        url: /openapi/account-service/v3/api-docs
       - name: CMS Service
-        url: ${microservice.portfolio-cms-url}/v3/api-docs
+        url: /openapi/cms-service/v3/api-docs
     oauth:
       client-id: ${KEYCLOAK_CLIENT_ID:keycloak_client_id}
       client-secret: ${KEYCLOAK_CLIENT_SECRET:keycloak_client_secret}
@@ -83,3 +84,16 @@ resilience4j:
       default:
         max-attempts: 3
         wait-duration: 2s
+
+logging:
+  level:
+    com:
+      portfolio: DEBUG
+    org:
+      keycloak: DEBUG
+#      springframework:
+#        web:
+#          client: DEBUG
+#      apache:
+#        http: DEBUG
+#      okhttp3: DEBUG

@@ -37,6 +37,8 @@ logging:
   level:
     com:
       portfolio: DEBUG
+    org:
+      keycloak: DEBUG
 
 springdoc:
   swagger-ui:
@@ -63,6 +65,11 @@ keycloak:
 
 server:
   port: 8084
+
+microservice:
+  portfolio-account-url: http://localhost:8084
+  portfolio-cms-url: http://localhost:8085
+  portfolio-gateway-url: http://localhost:8080
 
 management:
   endpoints:
