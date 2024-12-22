@@ -12,7 +12,8 @@ import java.lang.annotation.Target;
 @Target({ ElementType.METHOD, ElementType.FIELD, ElementType.ANNOTATION_TYPE, ElementType.PARAMETER })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ValidEnum {
-    String message() default "Invalid value. This is not permitted.";
+    String message() default "Invalid value, must be one of following {values}";
+    boolean required() default false;
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
     Class<? extends Enum<?>> enumClass(); // Specifies the enum class to validate
