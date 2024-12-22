@@ -12,13 +12,6 @@
   "http-method-as-scope": true,
   "paths" : [
     {
-      "path": "/*",
-      "methods" : [{
-        "method": "OPTIONS"
-      }],
-      "enforcement-mode": "DISABLED"
-    },
-    {
       "path": "/swagger-ui/*",
       "enforcement-mode": "DISABLED"
     },
@@ -27,20 +20,7 @@
       "enforcement-mode": "DISABLED"
     },
     {
-      "path": "/v1/__blogs/*",
-      "enforcement-mode": "DISABLED"
-    },
-    {
-      "path": "/v1/users/{userId}",
-      "enforcement-mode": "ENFORCING",
-      "claim-information-point": {
-        "claims": {
-          "uri_claim": "{request.uri}"
-        }
-      }
-    },
-    {
-      "path": "/v1/*",
+      "path": "/*",
       "enforcement-mode": "ENFORCING"
     }
   ]
