@@ -1,5 +1,6 @@
-package com.portfolio.core.helpers.validators;
+package com.portfolio.core.helpers.validators.validators;
 
+import com.portfolio.core.helpers.validators.annotations.ValidEnum;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
@@ -10,22 +11,19 @@ import java.util.stream.Collectors;
 public class EnumValidator implements ConstraintValidator<ValidEnum, Enum<?>> {
 
     private Enum<?>[] enumValues;
-    private boolean required;
     private String messageTemplate;
 
     @Override
     public void initialize(ValidEnum constraintAnnotation) {
         Class<? extends Enum<?>> enumClass = constraintAnnotation.enumClass();
         this.enumValues = enumClass.getEnumConstants();
-        this.required = constraintAnnotation.required();
         this.messageTemplate = constraintAnnotation.message();
     }
 
     @Override
     public boolean isValid(Enum<?> value, ConstraintValidatorContext context) {
-        if (value == null && !required) {
-            createConstraintViolationMessage(context);
-            return false;
+        if (value == null) {
+            return true;
         }
 
         boolean isValid = Arrays.asList(enumValues).contains(value);
@@ -33,7 +31,6 @@ public class EnumValidator implements ConstraintValidator<ValidEnum, Enum<?>> {
             createConstraintViolationMessage(context);
         }
         return isValid;
-
     }
 
     private void createConstraintViolationMessage(ConstraintValidatorContext context) {

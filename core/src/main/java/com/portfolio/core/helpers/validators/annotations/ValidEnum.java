@@ -1,5 +1,6 @@
-package com.portfolio.core.helpers.validators;
+package com.portfolio.core.helpers.validators.annotations;
 
+import com.portfolio.core.helpers.validators.validators.EnumValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 
@@ -13,7 +14,6 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ValidEnum {
     String message() default "Invalid value, must be one of following {values}";
-    boolean required() default false;
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
     Class<? extends Enum<?>> enumClass(); // Specifies the enum class to validate
