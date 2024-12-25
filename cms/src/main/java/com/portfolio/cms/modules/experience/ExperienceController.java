@@ -1,8 +1,7 @@
-package com.portfolio.cms.experience;
+package com.portfolio.cms.modules.experience;
 
-import com.portfolio.cms.experience.dto.CreateExperienceDto;
-import com.portfolio.cms.experience.dto.UpdateExperienceDto;
-import com.portfolio.cms.experience.dto.ExperienceResponseDto;
+import com.portfolio.cms.modules.experience.dto.ExperienceCreateUpdateDto;
+import com.portfolio.cms.modules.experience.dto.ExperienceResponseDto;
 import com.portfolio.core.common.ApiResponse;
 import com.portfolio.core.security.AuthDetails;
 import jakarta.validation.Valid;
@@ -12,7 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/experience")
+@RequestMapping("/v1/experience")
 public class ExperienceController {
 
     ExperienceService experienceService;
@@ -28,12 +27,12 @@ public class ExperienceController {
     }
 
     @PostMapping
-    public ApiResponse<ExperienceResponseDto> createExperience(@RequestBody @Valid CreateExperienceDto createExperienceDto, AuthDetails authDetails) {
+    public ApiResponse<ExperienceResponseDto> createExperience(@RequestBody @Valid ExperienceCreateUpdateDto createExperienceDto, AuthDetails authDetails) {
         return ApiResponse.success(this.experienceService.save(createExperienceDto, authDetails), "Experience created successfully");
     }
 
     @PutMapping("/{id}")
-    public ApiResponse<ExperienceResponseDto> updateExperience(@PathVariable Integer id, @RequestBody @Valid UpdateExperienceDto updateExperienceDto, AuthDetails authDetails) {
+    public ApiResponse<ExperienceResponseDto> updateExperience(@PathVariable Integer id, @RequestBody @Valid ExperienceCreateUpdateDto updateExperienceDto, AuthDetails authDetails) {
         return ApiResponse.success(this.experienceService.update(id, updateExperienceDto, authDetails, false), "Experience updated successfully");
     }
 

@@ -1,6 +1,6 @@
-package com.portfolio.cms.experience;
+package com.portfolio.cms.modules.experience;
 
-import com.portfolio.cms.experience.entity.Experience;
+import com.portfolio.cms.modules.experience.entity.Experience;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 

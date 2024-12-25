@@ -1,7 +1,7 @@
-package com.portfolio.cms.experience.dto;
+package com.portfolio.cms.modules.experience.dto;
 
-import com.portfolio.cms.experience.entity.EmploymentType;
-import com.portfolio.cms.experience.entity.LocationType;
+import com.portfolio.cms.modules.experience.entity.EmploymentType;
+import com.portfolio.cms.modules.experience.entity.LocationType;
 import lombok.Data;
 
 import java.time.LocalDate;
