@@ -1,4 +1,4 @@
-package com.portfolio.cms.blogs.entity;
+package com.portfolio.cms.modules.blogs.entity;
 
 import com.portfolio.core.common.BaseEntity;
 import com.portfolio.core.common.Identifiable;

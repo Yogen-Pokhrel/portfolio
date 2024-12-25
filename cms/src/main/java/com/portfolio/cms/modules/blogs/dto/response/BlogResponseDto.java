@@ -1,4 +1,4 @@
-package com.portfolio.cms.blogs.dto.response;
+package com.portfolio.cms.modules.blogs.dto.response;
 
 import lombok.Data;
 

@@ -1,15 +1,14 @@
-package com.portfolio.cms.blogs;
+package com.portfolio.cms.modules.blogs;
 
-import com.portfolio.cms.blogs.dto.request.CreateBlogDto;
-import com.portfolio.cms.blogs.dto.request.UpdateBlogDto;
-import com.portfolio.cms.blogs.dto.response.BlogResponseDto;
-import com.portfolio.cms.blogs.entity.Blog;
+import com.portfolio.cms.modules.blogs.dto.request.BlogCreateUpdateDto;
+import com.portfolio.cms.modules.blogs.dto.response.BlogResponseDto;
+import com.portfolio.cms.modules.blogs.entity.Blog;
 import com.portfolio.core.service.CrudService;
 import com.portfolio.core.exception.ValidationException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class BlogService extends CrudService<BlogRepository, Blog, CreateBlogDto, UpdateBlogDto, BlogResponseDto, Integer> {
+public class BlogService extends CrudService<BlogRepository, Blog, BlogCreateUpdateDto, BlogResponseDto, Integer> {
     public BlogService(BlogRepository repository) {
         super(repository, Blog.class, BlogResponseDto.class);
     }

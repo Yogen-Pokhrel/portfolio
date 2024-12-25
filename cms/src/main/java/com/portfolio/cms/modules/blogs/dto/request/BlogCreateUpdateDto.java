@@ -1,10 +1,10 @@
-package com.portfolio.cms.blogs.dto.request;
+package com.portfolio.cms.modules.blogs.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Data
-public class CreateBlogDto {
+public class BlogCreateUpdateDto {
     @NotBlank(message = "Title is required")
     private String title;
 

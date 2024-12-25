@@ -1,8 +1,7 @@
-package com.portfolio.cms.blogs;
+package com.portfolio.cms.modules.blogs;
 
-import com.portfolio.cms.blogs.dto.request.CreateBlogDto;
-import com.portfolio.cms.blogs.dto.request.UpdateBlogDto;
-import com.portfolio.cms.blogs.dto.response.BlogResponseDto;
+import com.portfolio.cms.modules.blogs.dto.request.BlogCreateUpdateDto;
+import com.portfolio.cms.modules.blogs.dto.response.BlogResponseDto;
 import com.portfolio.core.common.ApiResponse;
 import com.portfolio.core.security.AuthDetails;
 import io.swagger.v3.oas.annotations.Operation;
@@ -32,24 +31,19 @@ public class BlogController {
 
     @PostMapping
     @Operation(description = "Create blog", summary = "create blogs")
-    public ApiResponse<BlogResponseDto> create(@Valid @RequestBody CreateBlogDto createBlogDto, AuthDetails authDetails) {
+    public ApiResponse<BlogResponseDto> create(@Valid @RequestBody BlogCreateUpdateDto createBlogDto, AuthDetails authDetails) {
         blogService.save(createBlogDto, authDetails);
         return ApiResponse.success(null, "Blog created successfully");
     }
 
     @PutMapping("/{id}")
-    public ApiResponse<BlogResponseDto> update(@PathVariable Integer id, @RequestBody UpdateBlogDto updateBlogDto) {
+    public ApiResponse<BlogResponseDto> update(@PathVariable Integer id, @RequestBody @Valid BlogCreateUpdateDto updateBlogDto) {
         return ApiResponse.success(blogService.update(id, updateBlogDto, null, false), "Blog updated successfully");
     }
 
     @PatchMapping("/{id}")
-    public ApiResponse<BlogResponseDto> patchUpdate(@PathVariable Integer id, @RequestBody UpdateBlogDto updateBlogDto, AuthDetails authDetails) {
+    public ApiResponse<BlogResponseDto> patchUpdate(@PathVariable Integer id, @RequestBody BlogCreateUpdateDto updateBlogDto, AuthDetails authDetails) {
         return ApiResponse.success(blogService.update(id, updateBlogDto, authDetails, true), "Blog updated successfully");
-    }
-
-    @PatchMapping("/{id}/approve")
-    public ApiResponse<BlogResponseDto> approve(@PathVariable Integer id, @RequestBody UpdateBlogDto updateBlogDto, AuthDetails authDetails) {
-        return ApiResponse.success(blogService.update(id, updateBlogDto, authDetails, true), "Blog approved successfully");
     }
 
     @DeleteMapping("/{id}")
