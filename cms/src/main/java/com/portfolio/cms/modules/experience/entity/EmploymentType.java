@@ -1,4 +1,4 @@
-package com.portfolio.cms.experience.entity;
+package com.portfolio.cms.modules.experience.entity;
 
 import lombok.Getter;
 
