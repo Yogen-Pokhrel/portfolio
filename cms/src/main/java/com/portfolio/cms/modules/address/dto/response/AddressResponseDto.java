@@ -1,4 +1,4 @@
-package com.portfolio.cms.address.dto.response;
+package com.portfolio.cms.modules.address.dto.response;
 
 import lombok.Data;
 

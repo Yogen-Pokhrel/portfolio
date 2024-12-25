@@ -1,4 +1,4 @@
-package com.portfolio.cms.address.entity;
+package com.portfolio.cms.modules.address.entity;
 
 import com.portfolio.core.common.Identifiable;
 import jakarta.persistence.*;

@@ -1,4 +1,4 @@
-package com.portfolio.cms.address.dto.request;
+package com.portfolio.cms.modules.address.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -6,7 +6,7 @@ import jakarta.validation.constraints.Positive;
 import lombok.Data;
 
 @Data
-public class CreateAddressDto {
+public class AddressCreateUpdateDto {
     @NotBlank(message = "Street is mandatory")
     private String street;
 

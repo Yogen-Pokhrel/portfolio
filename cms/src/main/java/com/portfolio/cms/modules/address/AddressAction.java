@@ -1,4 +1,4 @@
-package com.portfolio.cms.address;
+package com.portfolio.cms.modules.address;
 
 import com.portfolio.core.common.Permission;
 import lombok.Getter;
