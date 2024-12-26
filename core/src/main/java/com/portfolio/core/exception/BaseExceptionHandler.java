@@ -13,10 +13,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static com.portfolio.core.util.ErrorMessageUtil.getCustomErrorMessage;
 import static com.portfolio.core.util.ErrorMessageUtil.simplifyMessage;
@@ -62,17 +59,8 @@ public class BaseExceptionHandler {
         ex.getBindingResult()
                 .getGlobalErrors()
                 .forEach(error -> {
-                    // Constraint validators which are implemented on class level i.e. ElementType.TYPE will be provided a target such that it will be easier to map error field.
-                    String targetField = error.unwrap(ConstraintViolation.class)
-                            .getConstraintDescriptor()
-                            .getAttributes()
-                            .get("target")
-                            .toString();
-                    if(targetField == null) {
-                        targetField = "general";
-                    }
                     String defaultMessage = error.getDefaultMessage();
-                    errors.computeIfAbsent(targetField, k -> new ArrayList<>()).add(defaultMessage);
+                    errors.computeIfAbsent("general", k -> new ArrayList<>()).add(defaultMessage);
                 });
 
 
@@ -87,9 +75,11 @@ public class BaseExceptionHandler {
         if (ex.getCause() instanceof JsonMappingException jsonMappingException) {
             for(JsonMappingException.Reference ref : jsonMappingException.getPath()) {
                 String message = getCustomErrorMessage(ref);
-                List<String> errorMessages = errors.getOrDefault(ref.getFieldName(), new ArrayList<>());
-                errorMessages.add(message);
-                errors.put(ref.getFieldName(), errorMessages);
+                if(ref.getFieldName() != null){
+                    List<String> errorMessages = errors.getOrDefault(ref.getFieldName(), new ArrayList<>());
+                    errorMessages.add(message);
+                    errors.put(ref.getFieldName(), errorMessages);
+                }
             }
         } else {
             errors.put("general", new ArrayList<>() {{
