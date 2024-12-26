@@ -25,8 +25,7 @@ import java.util.*;
  *
  * @param <Repository>  The repository type extending JpaRepository
  * @param <Entity>      The entity type implementing Identifiable
- * @param <CreateRequestDto>  The Data Transfer Object (DTO) type for creating entities
- * @param <UpdateRequestDto>  The Data Transfer Object (DTO) type for updating entities
+ * @param <CreateUpdateRequestDto>  The Data Transfer Object (DTO) type for creating and updating entities
  * @param <ResponseDto> The Response DTO type for returning results
  * @param <PrimaryKey>  The primary key type of the entity
  */
@@ -36,8 +35,7 @@ import java.util.*;
 public abstract class SimpleCrudService<
         Repository extends JpaRepository<Entity, PrimaryKey>,
         Entity extends Identifiable<PrimaryKey>,
-        CreateRequestDto,
-        UpdateRequestDto,
+        CreateUpdateRequestDto,
         ResponseDto,
         PrimaryKey> {
 
@@ -214,7 +212,7 @@ public abstract class SimpleCrudService<
      * @return The saved entity mapped to ResponseDto
      */
     @Transactional
-    public ResponseDto save(CreateRequestDto createDto) throws ValidationException {
+    public ResponseDto save(CreateUpdateRequestDto createDto) throws ValidationException {
         log.debug("Saving entity {}", createDto);
         Entity entity = modelMapper.map(createDto, entityClass);
         validate(entity);
@@ -231,7 +229,7 @@ public abstract class SimpleCrudService<
      * @return The updated entity mapped to ResponseDto
      */
     @Transactional
-    public ResponseDto update(PrimaryKey id, UpdateRequestDto updateDto, Boolean isPatchRequest) throws ResourceNotFoundException, ValidationException {
+    public ResponseDto update(PrimaryKey id, CreateUpdateRequestDto updateDto, Boolean isPatchRequest) throws ResourceNotFoundException, ValidationException {
         log.debug("Updating entity {} with {}", id, updateDto);
         Entity entity = findOneById(id);
         if (isPatchRequest) {

@@ -6,14 +6,19 @@ import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import io.swagger.v3.oas.models.servers.Server;
+import org.springdoc.core.utils.SpringDocUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.domain.Page;
+import org.springframework.data.web.PagedModel;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.HashMap;
 
 public class BaseOpenApiConfig {
-
+    static {
+        SpringDocUtils.getConfig().replaceWithClass(Page.class, PagedModel.class);
+    }
     private final String apiTitle;
     private final String apiDescription;
     private final String microserviceName;
