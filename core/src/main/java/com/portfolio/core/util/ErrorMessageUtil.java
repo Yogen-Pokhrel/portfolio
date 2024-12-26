@@ -5,11 +5,9 @@ import com.portfolio.core.helpers.validators.annotations.ErrorMessage;
 import lombok.extern.slf4j.Slf4j;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.ParameterizedType;
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -34,6 +32,12 @@ public class ErrorMessageUtil {
         errorMessageMap.put(double.class, fieldType -> "Invalid decimal value");
         errorMessageMap.put(Boolean.class, fieldType -> "Invalid boolean value: Expected either true or false");
         errorMessageMap.put(boolean.class, fieldType -> "Invalid boolean value: Expected either true or false");
+        errorMessageMap.put(Long.class, fieldType -> "Invalid number");
+        errorMessageMap.put(long.class, fieldType -> "Invalid number");
+        errorMessageMap.put(Float.class, fieldType -> "Invalid number");
+        errorMessageMap.put(float.class, fieldType -> "Invalid number");
+        errorMessageMap.put(Short.class, fieldType -> "Invalid number");
+        errorMessageMap.put(short.class, fieldType -> "Invalid number");
     }
 
     /**
@@ -53,14 +57,14 @@ public class ErrorMessageUtil {
                 ErrorMessage errorMessage = field.getAnnotation(ErrorMessage.class);
 
                 if (errorMessage.message().isEmpty()) {
-                    return getTypeSpecificMessage(field.getType());
+                    return getTypeSpecificMessage(field);
                 }
 
                 return errorMessage.message();
-            }else{
-                return getTypeSpecificMessage(field.getType());
+            } else {
+                return getTypeSpecificMessage(field);
             }
-        } catch (NoSuchFieldException e) {
+        } catch (Exception e) {
             log.warn("Field '{}' not found in class '{}'.", ref.getFieldName(), ref.getFrom().getClass().getSimpleName());
         }
         return "Invalid value";
@@ -71,70 +75,79 @@ public class ErrorMessageUtil {
      * This method uses a map of common field types to return a corresponding error message.
      * If the field type is an enum, a custom message with the valid enum options is generated.
      *
-     * @param fieldType The class type of the field.
+     * @param field The field to generate an error message for.
      * @return A type-specific error message.
      */
-    private static String getTypeSpecificMessage(Class<?> fieldType) {
+    private static String getTypeSpecificMessage(Field field) {
+        Class<?> fieldType = field.getType();
+
         if (errorMessageMap.containsKey(fieldType)) {
             return errorMessageMap.get(fieldType).apply(fieldType);
         }
 
-        // If it's an enum type, check if the fieldType is assignable from Enum,
-        //we should be specifically looking for classes that are assignable from Enum, not Enum.class itself which is why this message is not added on the map
+        if (Collection.class.isAssignableFrom(fieldType)) {
+            if (List.class.isAssignableFrom(fieldType)) {
+                return "Invalid list, expected elements of type " + getGenericType(field);
+            } else if (Set.class.isAssignableFrom(fieldType)) {
+                return "Invalid set, expected elements of type " + getGenericType(field);
+            } else if (Map.class.isAssignableFrom(fieldType)) {
+                return "Invalid map, expected key-value pairs with types: " + getGenericType(field) + " -> " + getMapValueType(field);
+            }
+        }
+
         if (Enum.class.isAssignableFrom(fieldType)) {
             String enumValues = Arrays.toString(fieldType.getEnumConstants());
             return "Invalid value, expected one of the valid enum options: " + enumValues;
         }
 
-        return "Invalid value for type: " + fieldType.getSimpleName();
+        return "Invalid value provided";
     }
 
     /**
-     * Utility class for extracting and replacing fully qualified class names in a string
+     * Helper method to get the generic type of a collection (List or Set) dynamically based on the field.
+     *
+     * @param field The field in the class that represents the collection.
+     * @return The simple name of the generic type (if available).
+     */
+    private static String getGenericType(Field field) {
+        if (field.getGenericType() instanceof ParameterizedType) {
+            ParameterizedType paramType = (ParameterizedType) field.getGenericType();
+            return ((Class<?>) paramType.getActualTypeArguments()[0]).getSimpleName();
+        }
+        return "Unknown type";
+    }
+
+    /**
+     * Helper method to get the generic value type of a Map dynamically based on the field.
+     *
+     * @param field The field in the class that represents the map.
+     * @return The simple name of the value type in the map.
+     */
+    private static String getMapValueType(Field field) {
+        if (field.getGenericType() instanceof ParameterizedType) {
+            ParameterizedType paramType = (ParameterizedType) field.getGenericType();
+            return ((Class<?>) paramType.getActualTypeArguments()[1]).getSimpleName();
+        }
+        return "Unknown type";
+    }
+
+    /**
+     * Utility method for extracting and replacing fully qualified class names in a string
      * with their corresponding simple class names.
      *
-     * The method uses regular expressions to identify occurrences of fully qualified class names
-     * (e.g., "java.util.LocalDate" or "java.io.File") and replaces them with their simple class names
-     * (e.g., "LocalDate" or "File") within the provided input string.
-     *
-     * <p>
-     * Example:
-     * <pre>
-     * String input = "Some text java.util.LocalDate and other append java.io.File";
-     * String result = ClassNameExtractor.extractSimpleClassName(input);
-     * System.out.println(result);  // Output: "Some text LocalDate and other append File"
-     * </pre>
-     * </p>
-     *
-     * <h3>Regex Explanation</h3>
-     * The method uses the following regular expression to identify fully qualified class names:
-     * <ul>
-     *   <li><b>(?:[a-z]+\\.)+</b>: Matches one or more lowercase package names followed by a dot (e.g., "java." or "util.")</li>
-     *   <li><b>[A-Za-z]+</b>: Matches the class name (e.g., "LocalDate" or "File")</li>
-     * </ul>
-     *
-     * The replacement occurs by extracting the class name (the part after the last dot) and replacing
-     * the matched fully qualified class name with just the class name in the input string.
-     *
-     * <h3>Important Notes</h3>
-     * <ul>
-     *   <li>The method replaces all occurrences of fully qualified class names in the input string.</li>
-     *   <li>It does not modify the original input string but returns a new string with the replacements.</li>
-     * </ul>
-     *
      * @param input The input string containing potentially fully qualified class names.
-     * @return A new string with all fully qualified class names replaced by their simple class names..
+     * @return A new string with all fully qualified class names replaced by their simple class names.
      */
     public static String simplifyMessage(String input) {
-        if (input == null) { return null;}
+        if (input == null) {
+            return null;
+        }
 
-        // Regex pattern to match the fully qualified class name
         String regex = "(?:[a-z]+\\.)+[A-Za-z]+";
 
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(input);
 
-        // Replace all occurrences of fully qualified class names with just the class name
         StringBuilder output = new StringBuilder();
         while (matcher.find()) {
             String fullClassName = matcher.group();
