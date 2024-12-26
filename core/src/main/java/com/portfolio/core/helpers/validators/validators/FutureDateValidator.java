@@ -1,6 +1,6 @@
 package com.portfolio.core.helpers.validators.validators;
 
-import com.portfolio.core.helpers.validators.annotations.DateGreaterThanToday;
+import com.portfolio.core.helpers.validators.annotations.FutureDate;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
@@ -8,7 +8,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
-public class DateGreaterThanTodayValidator implements ConstraintValidator<DateGreaterThanToday, Object> {
+public class FutureDateValidator implements ConstraintValidator<FutureDate, Object> {
     @Override
     public boolean isValid(Object value, ConstraintValidatorContext context) {
         if (value == null) {
