@@ -92,7 +92,7 @@ management:
             requests: true
   observations:
     key-values:
-      application: account-service
+      application: cms-service
   tracing:
     sampling:
       probability: 1.0
