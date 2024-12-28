@@ -51,7 +51,11 @@ public class Routes {
     @Bean
     public RouterFunction<ServerResponse> cmsServiceRoute() {
         return route("cms_service")
-                .route(RequestPredicates.path("/cms/*"), HandlerFunctions.http(addressResolver.getCmsUrl()))
+                .route(RequestPredicates
+                                .path("/cms/*")
+                                .or(RequestPredicates.path("/v1/education*"))
+                                .or(RequestPredicates.path("/v1/experience*"))
+                        ,HandlerFunctions.http(addressResolver.getCmsUrl()))
                 .filter(CircuitBreakerFilterFunctions.circuitBreaker("productServiceCircuitBreaker",
                         URI.create("forward:/fallbackRoute")))
                 .build();
