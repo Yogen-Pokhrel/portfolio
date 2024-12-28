@@ -39,16 +39,10 @@ keycloak:
 
 # Actuator Endpoints
 management:
-  health:
-    circuitbreakers:
-      enabled: true
   endpoints:
     web:
       exposure:
-        include: "*"
-  endpoint:
-    health:
-      show-details: always
+        include: health, info, metrics, prometheus
   metrics:
     distribution:
       percentiles-histogram:
