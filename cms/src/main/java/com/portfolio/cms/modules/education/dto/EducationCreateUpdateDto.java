@@ -3,6 +3,7 @@ package com.portfolio.cms.modules.education.dto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.portfolio.cms.modules.experience.entity.EmploymentType;
 import com.portfolio.core.helpers.validators.annotations.*;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
@@ -14,12 +15,13 @@ import java.util.UUID;
 @RequiredIf(target = {"endDate"}, dependsOn = "graduated", requiredWhenValue = "true")
 public class EducationCreateUpdateDto {
 
-    @NotNull(message = "University name cannot be null")
+    @NotEmpty(message = "University name cannot be empty")
     private String university;
+
+    @NotEmpty
     private String degree;
 
     private String fieldOfStudy;
-    private int testVal;
 
     @PastDate
     private LocalDate startDate;
