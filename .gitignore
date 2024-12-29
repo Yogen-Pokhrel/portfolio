@@ -23,7 +23,7 @@ target/
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
-/dist/
+*/dist/
 /nbdist/
 /.nb-gradle/
 build/
@@ -34,3 +34,5 @@ build/
 .vscode/
 .DS_Store
 public/
+external-services/data/tempo/blocks/
+external-services/keycloak-resource-generator/node_modules/
