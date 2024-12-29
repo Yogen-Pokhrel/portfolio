@@ -2,7 +2,6 @@ package com.portfolio.core.exception;
 
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.portfolio.core.common.ApiResponse;
-import jakarta.validation.ConstraintViolation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;

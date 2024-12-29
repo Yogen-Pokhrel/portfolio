@@ -83,11 +83,11 @@ logging:
   level:
     com:
       portfolio: DEBUG
-    org:
-      keycloak: DEBUG
-#      springframework:
-#        web:
-#          client: DEBUG
-#      apache:
-#        http: DEBUG
-#      okhttp3: DEBUG
+#    org:
+#      keycloak: DEBUG
+##      springframework:
+##        web:
+##          client: DEBUG
+##      apache:
+##        http: DEBUG
+##      okhttp3: DEBUG

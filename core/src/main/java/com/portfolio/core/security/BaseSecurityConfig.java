@@ -38,10 +38,10 @@ public class BaseSecurityConfig {
                 .addFilterAfter(createPolicyEnforcerFilter(), BearerTokenAuthenticationFilter.class);
 
         if(skipAuthConverter) {
-            log.debug("Skipping authentication converter");
+            log.trace("Skipping authentication converter");
             http.oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()));
         }else{
-            log.debug("Authentication converter added for the service");
+            log.trace("Authentication converter added for the service");
             http.oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(new AuthenticationConverter())));
         }
 

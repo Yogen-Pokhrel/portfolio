@@ -34,7 +34,7 @@ public class AuthDetails extends JwtAuthenticationToken {
         this.roles = jwt.getClaimAsMap("realm_access") != null
                 ? (List<String>) jwt.getClaimAsMap("realm_access").getOrDefault("roles", new ArrayList<>())
                 : new ArrayList<>();
-        log.info("Auth details injected");
+        log.trace("Auth details injected");
     }
 
     public static Collection<GrantedAuthority> extractAuthorities(Jwt jwt) {
