@@ -12,7 +12,7 @@ public class AuthenticationConverter implements Converter<Jwt, AbstractAuthentic
     @Override
     public AbstractAuthenticationToken convert(@NonNull Jwt jwt)
     {
-        log.debug("Injecting AuthDetails");
+        log.trace("Injecting AuthDetails");
         return new AuthDetails(jwt);
     }
 }
